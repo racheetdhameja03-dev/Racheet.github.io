@@ -137,7 +137,7 @@
     </div>
   </section>
 
-  <div class="modal" id="directoryModal" aria-hidden="true"><div class="modal-backdrop" id="modalBackdrop"></div><div class="directory-sheet" role="dialog" aria-modal="true" aria-label="Passenger directory"><div class="directory-head"><div><span class="tag-text">ALL ABOARD</span><h2>Passenger directory <span>↗</span></h2><p>16 classmates. Seven destinations. One Division B.</p></div><button class="modal-close" type="button" id="directoryClose" aria-label="Close directory">✕</button></div><div class="directory-controls"><label for="studentSearch">SEARCH PASSENGERS</label><input type="search" id="studentSearch" placeholder="Try a name or company…" autocomplete="off"/></div><div id="directoryRows" class="directory-rows"></div><p class="directory-disclaimer">All 16 students are on the supplied Division B roster. The two external placements have unconfirmed company names and dates; NTT’s city/date are not yet specified. Portrait photos are placeholders until provided with permission.</p></div></div>
+  <div class="modal" id="directoryModal" aria-hidden="true"><div class="modal-backdrop" id="modalBackdrop"></div><div class="directory-sheet" role="dialog" aria-modal="true" aria-label="Passenger directory"><div class="directory-head"><div><span class="tag-text">ALL ABOARD</span><h2>Passenger directory <span>↗</span></h2><p>16 classmates. Seven destinations. One Division B.</p></div><button class="modal-close" type="button" id="directoryClose" aria-label="Close directory">✕</button></div><div class="directory-controls"><label for="studentSearch">SEARCH PASSENGERS</label><input type="search" id="studentSearch" placeholder="Try a name or company…" autocomplete="off"/></div><div id="directoryRows" class="directory-rows"></div><p class="directory-disclaimer">All 16 students are on the supplied Division B roster. The two external placements have unconfirmed company names and dates; NTT’s placement date is not yet specified. Portrait photos are placeholders until provided with permission.</p></div></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 /* Edit this file to update the website. Changes published through GitHub Pages keep the same URL. */
@@ -152,7 +152,7 @@ window.PLACEMENT_DATA = {
     { id: 'icici', name: 'ICICI Bank', cityLabel: 'Pan India', scene: 'india', color: '#f0636b', line: 'Red Line', dateLabel: '17 OCT 2026' },
     { id: 'sagility', name: 'Sagility', cityLabel: 'Bengaluru', scene: 'bengaluru', color: '#2eb99a', line: 'Green Line', dateLabel: '23 SEP 2026' },
     { id: 'friday', name: 'Friday Fiction Films', cityLabel: 'Ahmedabad', scene: 'ahmedabad', color: '#9c67e8', line: 'Violet Line', dateLabel: '17 OCT 2026' },
-    { id: 'ntt', name: 'NTT', cityLabel: 'Location to be added', scene: 'undisclosed', color: '#f38b46', line: 'Orange Line', dateLabel: '' },
+    { id: 'ntt', name: 'NTT', cityLabel: 'Bengaluru', scene: 'bengaluru', color: '#f38b46', line: 'Orange Line', dateLabel: '' },
     { id: 'external', name: 'External Placements', cityLabel: 'Independent routes · companies TBA', scene: 'external', color: '#9476ce', line: 'Independent Line', dateLabel: '', kind: 'external' }
   ],
   students: [
@@ -241,7 +241,7 @@ window.PLACEMENT_DATA = {
       if (!p) return '';
       const count = studentsAt(st.id).length;
       const name = st.name === 'Friday Fiction Films' ? 'Friday Fiction' : st.id === 'external' ? 'External Placements' : st.name;
-      const placeCity = st.id === 'external' ? 'Off-campus · 2 students' : st.id === 'ntt' ? 'City to be added' : st.cityLabel;
+      const placeCity = st.id === 'external' ? 'Off-campus · 2 students' : st.cityLabel;
       return `<g class="station-group" tabindex="0" role="button" aria-label="Visit ${esc(st.name)} station, ${count} placed" data-station-id="${esc(st.id)}">
        <title>${esc(st.name)} · ${count} placed · Click to travel</title>
        <circle class="station-halo" cx="${p.x}" cy="${p.y}" r="40" fill="${st.color}"/>
@@ -334,7 +334,7 @@ window.PLACEMENT_DATA = {
       icici:'Destination: Pan India. Let us see where the journey takes us.',
       sagility:'Destination: Bengaluru.',
       friday:'Destination: Ahmedabad.',
-      ntt:'Destination details will be announced soon.',
+      ntt:'Destination: Bengaluru.',
       external:'Different routes, same achievement. Congratulations to our external placements.'
     }[st.id] || 'A new chapter begins here.';
     return [`Agla station, ${label}.`,`Next station, ${label}.`,destination,'Please stand clear of the doors.'];
@@ -469,7 +469,7 @@ window.PLACEMENT_DATA = {
     $('mapCard').classList.add('is-zooming');
     $('tripLine').textContent=st.line.toUpperCase();
     $('journeyHeadline').innerHTML=`Next stop,<br/><em>${esc(st.name)}.</em>`;
-    $('journeyDescription').textContent=st.kind === 'external' ? 'Some journeys take a different track. Celebrating two classmates who secured external placements.' : st.id === 'ntt' ? 'Our newest company stop is NTT. Destination city details coming soon.' : `Welcome aboard the ${st.line.toLowerCase()}. Your destination: ${st.cityLabel}.`;
+    $('journeyDescription').textContent=st.kind === 'external' ? 'Some journeys take a different track. Celebrating two classmates who secured external placements.' : `Welcome aboard the ${st.line.toLowerCase()}. Your destination: ${st.cityLabel}.`;
     $('journeyPhaseLabel').textContent='NOW DEPARTING · DIVISION B CENTRAL';
     $('ledStation').textContent=st.name;
     $('ledLine').textContent=st.kind === 'external' ? 'Every path deserves a celebration →' : 'Doors will open shortly →';
