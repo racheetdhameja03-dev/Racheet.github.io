@@ -6,7 +6,7 @@
   <meta name="description" content="Division B Placement Metro — an interactive celebration of classmates and their first destinations." />
   <meta name="theme-color" content="#eaf3f8" />
   <title>Division B · Placement Metro</title>
-<style>
+  <style>
 :root{--ink:#11273a;--muted:#718392;--canvas:#eef5f7;--paper:#fff;--edge:#d9e5e9;--blue:#2378e9;--dark:#061929;--green:#29ab88;--font:'DM Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--display:'Outfit',var(--font)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font);color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased}button,input{font:inherit}button{cursor:pointer}button:focus-visible,[tabindex]:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #2b82fd;outline-offset:4px}button:disabled{cursor:not-allowed}a{text-decoration:none;color:inherit}::selection{background:#b5d5f9;color:#102c49}
 .site-wrap{max-width:1620px;margin:auto;min-height:100vh;padding:0 52px}.topbar{height:90px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d7e5e8}.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:46px;height:46px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:14px;color:var(--ink)}.brand-mark svg{width:30px}.brand-type{display:flex;flex-direction:column;line-height:1.05;letter-spacing:.035em}.brand-type strong{font:800 17px var(--display)}.brand-type small{font-size:10px;font-weight:800;letter-spacing:.16em;margin-top:5px}.topbar-middle{font-size:10px;font-weight:800;letter-spacing:.14em;display:flex;align-items:center;gap:12px;color:#5c7584}.live-dot,.ping-dot{width:7px;height:7px;border-radius:50%;background:#20ba80;box-shadow:0 0 0 4px #d8f3e5;display:inline-block}.topbar-divider{height:15px;width:1px;background:#bed0d7;margin:0 6px}.topbar-actions{display:flex;align-items:center;gap:14px}.subtle-btn{border:1px solid var(--edge);background:white;border-radius:25px;padding:12px 17px;font-size:12px;font-weight:800;color:#1d3446;box-shadow:0 3px 8px #16304a08;transition:transform .2s}.subtle-btn:hover,.round-btn:hover{transform:translateY(-2px)}.icon-small{font-size:22px;line-height:0;vertical-align:-2px;margin-right:5px}.round-btn{position:relative;background:#e0ebf1;width:41px;height:41px;border:1px solid #d4e2e8;border-radius:50%;font-size:22px;color:#466072;transition:transform .2s}.sound-slash{position:absolute;left:9px;top:20px;width:22px;height:2px;transform:rotate(-45deg);background:#cf6473}.round-btn.sound-on .sound-slash{display:none}
@@ -57,9 +57,44 @@
   .map-footer .muted:after{content:' · swipe the map to see all stops';font-size:10px}
 }
 
+/* Accessible station announcements & volume control */
+.sound-controls{display:flex;align-items:center;position:relative;gap:3px}
+.sound-controls .round-btn.sound-on{background:#dcf7ee;border-color:#9ad9c3;color:#176e57}
+.volume-toggle{height:38px;width:22px;border:1px solid #d5e2e9;border-radius:12px;background:#fff;color:#426276;font-size:20px;line-height:1;cursor:pointer}
+.volume-toggle:hover{background:#f0f7f9}
+.volume-panel{position:absolute;top:calc(100% + 13px);right:0;width:277px;z-index:200;background:#fff;border:1px solid #d9e6eb;border-radius:16px;padding:18px;box-shadow:0 18px 40px #1a415433;color:#244257;text-align:left}
+.volume-panel[hidden]{display:none!important}
+.volume-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:9px}
+.volume-panel label{font-size:9px;letter-spacing:.12em;font-weight:900;color:#456476}
+.volume-panel strong{font-size:14px;font-weight:900;color:#167b63}
+.volume-panel input[type=range]{display:block;width:100%;accent-color:#2478e8;cursor:pointer;margin:18px 0 9px}
+.volume-panel p{font-size:11px;line-height:1.5;color:#617d8c;margin:0}
+.announcement-box{margin-top:24px;border:1px solid #54768c;background:linear-gradient(115deg,#172f42,#244359);border-radius:17px;padding:16px 17px 14px;box-shadow:inset 0 1px 0 #ffffff15;max-width:400px}
+.announcement-heading{display:flex;align-items:center;gap:8px;color:#a0d4dc;font-size:10px;letter-spacing:.07em;font-weight:900}
+.announcement-heading strong{font-size:10px;letter-spacing:.07em;white-space:nowrap}
+.announcement-heading #announcementStep{margin-left:auto;font-size:9px;color:#bbd6de;font-variant-numeric:tabular-nums;white-space:nowrap}
+.speaking-indicator{color:#75ebc8;white-space:nowrap;font-size:13px}
+.announcement-box.is-speaking .speaking-indicator{animation:voice-pulse .9s ease-in-out infinite alternate}
+.announcement-box p{font-size:14px!important;line-height:1.6!important;font-weight:650;color:#f3f9fb!important;margin:10px 0 11px!important;min-height:46px}
+.replay-announcement{background:#ffffff14;border:1px solid #94bfca55;border-radius:22px;color:#dbf7f4;font:800 11px var(--font);padding:9px 13px;cursor:pointer;transition:background .15s}
+.replay-announcement:hover{background:#ffffff27}
+.replay-announcement:focus-visible,.volume-toggle:focus-visible,.round-btn:focus-visible{outline:3px solid #74d6ef;outline-offset:3px}
+@keyframes voice-pulse{from{opacity:.35;transform:scale(.93)}to{opacity:1;transform:scale(1.1)}}
+@media(max-width:850px){.announcement-box{max-width:none;margin-top:13px}.announcement-box p{min-height:unset!important}}
+@media(max-width:550px){.topbar-actions{gap:5px}.volume-toggle{height:33px;width:18px}.volume-panel{width:min(277px,calc(100vw - 25px))}.announcement-box{padding:12px 13px}.announcement-heading strong{font-size:9px}.announcement-box p{font-size:12px!important;line-height:1.5!important}.replay-announcement{font-size:10px;padding:8px 11px}}
+@media(prefers-reduced-motion:reduce){.announcement-box.is-speaking .speaking-indicator{animation:none}}
+
+.phase-ride .journey-progress-fill{animation-duration:var(--travel-time, 2.75s)}.phase-ride .journey-train{animation-duration:var(--travel-time, 2.75s)}
+
+.announcement-bottom{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}
+.journey-volume{display:flex;align-items:center;gap:5px;color:#a9d3dc;font-size:9px;font-weight:900;letter-spacing:.05em}
+.journey-volume input{width:83px;max-width:22vw;accent-color:#6fe2bd;cursor:pointer}
+.journey-volume output{min-width:30px;text-align:right;color:#d5f4e8;font-variant-numeric:tabular-nums}
+@media(max-width:550px){.announcement-bottom{gap:6px}.journey-volume input{width:65px}.journey-volume output{font-size:9px}}
+
 </style>
-
-
+  
+  
 </head>
 <body>
   <div class="site-wrap" id="home">
@@ -69,7 +104,7 @@
         <span class="brand-type"><strong>DIVISION B</strong><small>PLACEMENT METRO</small></span>
       </a>
       <div class="topbar-middle"><span class="live-dot"></span> THE JOURNEY IS UNDERWAY <span class="topbar-divider"></span> BENGALURU • 2026</div>
-      <div class="topbar-actions"><button class="subtle-btn" id="directoryOpen" type="button"><span class="icon-small">⌕</span> Passenger directory</button><button class="round-btn" id="soundButton" type="button" aria-label="Turn station announcements on" title="Sound off">♪<span class="sound-slash"></span></button></div>
+      <div class="topbar-actions"><button class="subtle-btn" id="directoryOpen" type="button"><span class="icon-small">⌕</span> Passenger directory</button><div class="sound-controls"><button class="round-btn sound-on" id="soundButton" type="button" aria-label="Mute metro announcements" title="Announcements on">♪<span class="sound-slash"></span></button><button class="volume-toggle" id="volumeButton" type="button" aria-label="Adjust announcement volume" aria-expanded="false" aria-controls="volumePanel" title="Announcement volume">⌄</button><div class="volume-panel" id="volumePanel" hidden><div class="volume-panel-heading"><label for="volumeSlider">ANNOUNCEMENT VOLUME</label><strong id="volumeValue">85%</strong></div><input type="range" id="volumeSlider" min="0" max="100" step="5" value="85" aria-label="Announcement volume"/><p>Sound starts after you choose a station. Voice quality depends on your browser.</p></div></div></div>
     </header>
     <main>
       <div class="hero-row">
@@ -96,7 +131,7 @@
 
   <section class="journey" id="journey" aria-label="Metro journey" aria-hidden="true">
     <div class="journey-topbar"><div class="journey-logo"><span class="journey-logo-ring">B</span><span>DIVISION B <b>METRO</b></span><span class="journey-divider">/</span><span id="tripLine">BLUE LINE</span></div><div class="journey-actions"><button type="button" class="journey-action" id="tripSkip">Skip ride <span>↗</span></button><button type="button" class="journey-action" id="tripBack">✕ <span>Back to map</span></button></div></div>
-    <div class="journey-layout"><div class="journey-lede"><span class="tag-text" id="journeyPhaseLabel">NOW DEPARTING</span><h2 id="journeyHeadline">Mind the gap.<br/><em>Dream big.</em></h2><p id="journeyDescription">Your train is now heading towards its next destination.</p><div class="journey-progress-block"><div class="progress-labels"><span>DIVISION B CENTRAL</span><span id="progressDestination">MARSH</span></div><div class="journey-progress"><div class="journey-progress-fill"></div><span class="journey-train">▣</span></div><div class="journey-progress-bottom"><span>● ON BOARD</span><span>● <span id="nextCityBottom">MUMBAI / BENGALURU</span></span></div></div></div>
+    <div class="journey-layout"><div class="journey-lede"><span class="tag-text" id="journeyPhaseLabel">NOW DEPARTING</span><h2 id="journeyHeadline">Mind the gap.<br/><em>Dream big.</em></h2><p id="journeyDescription">Your train is now heading towards its next destination.</p><div class="announcement-box" id="announcementBox" aria-live="polite"><div class="announcement-heading"><span class="speaking-indicator" aria-hidden="true">◖))</span><strong id="announcementStatus">STATION ANNOUNCEMENT</strong><span id="announcementStep">READY</span></div><p id="announcementCaption">Choose a station to hear your announcement.</p><div class="announcement-bottom"><button type="button" id="replayAnnouncement" class="replay-announcement">↻ <span>Replay announcement</span></button><label class="journey-volume" for="rideVolume"><span>VOL</span><input id="rideVolume" type="range" min="0" max="100" step="5" value="85" aria-label="Train announcement volume"/><output id="rideVolumeValue" for="rideVolume">85%</output></label></div></div><div class="journey-progress-block"><div class="progress-labels"><span>DIVISION B CENTRAL</span><span id="progressDestination">MARSH</span></div><div class="journey-progress"><div class="journey-progress-fill"></div><span class="journey-train">▣</span></div><div class="journey-progress-bottom"><span>● ON BOARD</span><span>● <span id="nextCityBottom">MUMBAI / BENGALURU</span></span></div></div></div>
       <div class="carriage" id="carriage"><div class="carriage-roof"><span class="hanger">⌑</span><div class="led"><small>● UPCOMING STATION</small><strong id="ledStation">MARSH</strong><span class="led-sub" id="ledLine">Doors will open shortly →</span></div><span class="hanger">⌑</span></div><div class="carriage-body"><span class="grabrail grabrail-left"></span><div class="metro-window" id="metroWindow"><div class="window-scenery" id="scenery"></div><div class="window-reflection"></div><div class="window-sticker">THE NEXT CHAPTER<br/>LOOKS GOOD ON YOU ✳</div></div><span class="grabrail grabrail-right"></span></div><div class="carriage-floor"><span>▰ ▰ ▰</span><span>DIVISION B EXPRESS · THIS IS YOUR MOMENT</span><span>▰ ▰ ▰</span></div></div>
       <div class="arrival-platform" id="arrivalPlatform" aria-live="polite"><div class="platform-heading"><div><span class="platform-eyebrow">WELCOME TO YOUR DESTINATION</span><h2><span id="platformStation">Marsh</span> <span class="platform-flag">STATION</span></h2><p><span id="platformPeopleCount">3</span> <span id="platformPeopleDescription">Division B students placed here</span> <span class="dot-sep">·</span> <span id="platformCity">Mumbai / Bengaluru</span></p></div><span class="arrival-roundel">B<span>⇄</span></span></div><div class="door-bay"><div class="behind-doors" id="studentCards"></div><div class="sliding-door sliding-door-left"><div class="door-window"></div><div class="door-handle"></div></div><div class="sliding-door sliding-door-right"><div class="door-window"></div><div class="door-handle"></div></div><div class="platform-yellow-line"></div></div><div class="arrival-bottom"><span>⚑ <strong>Same classroom. Different destinations.</strong> Still Division B.</span><button type="button" id="anotherStation">Explore another station <span>↗</span></button></div></div>
     </div>
@@ -160,7 +195,15 @@ window.PLACEMENT_DATA = {
     return year && month && day ? new Date(Date.UTC(year, month - 1, day)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : String(iso);
   };
   const stationById = id => data.stations.find(st => st.id === id);
-  let phase = 'map', currentStation = null, timers = [], soundOn = false, lastFocused = null;
+  let phase = 'map', currentStation = null, timers = [], lastFocused = null;
+  let soundOn = true, announcementVolume = .85, speechId = 0, rideStartedAt = 0, audioContext = null, speechTimeout = null;
+  try {
+    const storedSound = localStorage.getItem('divisionBMetro.sound');
+    if(storedSound === 'off') soundOn = false;
+    const storedVolume = Number(localStorage.getItem('divisionBMetro.volume'));
+    if(localStorage.getItem('divisionBMetro.volume') !== null && Number.isFinite(storedVolume)) announcementVolume = Math.max(0,Math.min(1,storedVolume));
+  } catch (_) { /* Some browser privacy modes disable storage. */ }
+  const recordAudioSettings = () => {try{localStorage.setItem('divisionBMetro.sound',soundOn?'on':'off');localStorage.setItem('divisionBMetro.volume',String(announcementVolume))}catch(_){}};
   const queue = (callback, delay) => { const t = setTimeout(callback, delay); timers.push(t); };
   function cancelQueued() { timers.forEach(clearTimeout); timers = []; }
 
@@ -283,14 +326,123 @@ window.PLACEMENT_DATA = {
       default: return cityScene('bengaluru',st.cityLabel);
     }
   }
-  function announce(st){
-    if(!soundOn || !('speechSynthesis' in window)) return;
+  const announcementLines = st => {
+    const label = st.id==='icici' ? 'I C I C I Bank' : st.id==='ntt' ? 'N T T' : st.name;
+    const destination = {
+      marsh:'Mumbai and Bengaluru. Two cities, one journey.',
+      crisil:'Destination: Mumbai.',
+      icici:'Destination: Pan India. Let us see where the journey takes us.',
+      sagility:'Destination: Bengaluru.',
+      friday:'Destination: Ahmedabad.',
+      ntt:'Destination details will be announced soon.',
+      external:'Different routes, same achievement. Congratulations to our external placements.'
+    }[st.id] || 'A new chapter begins here.';
+    return [`Agla station, ${label}.`,`Next station, ${label}.`,destination,'Please stand clear of the doors.'];
+  };
+  const preferredVoice = () => {
+    if(!('speechSynthesis' in window)) return null;
+    const voices = speechSynthesis.getVoices();
+    return voices.find(v=>v.lang?.toLowerCase()==='en-in' && v.localService)
+        || voices.find(v=>v.lang?.toLowerCase()==='en-in')
+        || voices.find(v=>v.lang?.toLowerCase()==='en-gb')
+        || voices.find(v=>v.lang?.toLowerCase().startsWith('en'))
+        || null;
+  };
+  function caption(line,step=''){
+    $('announcementCaption').textContent=line;
+    $('announcementStep').textContent=step;
+  }
+  function stopSpeech(){
+    speechId++;
+    if(speechTimeout) {clearTimeout(speechTimeout);speechTimeout=null;}
+    $('announcementBox').classList.remove('is-speaking');
+    if('speechSynthesis' in window) try{window.speechSynthesis.cancel()}catch(_){}
+  }
+  function beginArrivalWhenReady(){
+    if(phase!=='ride')return;
+    cancelQueued();
+    const remaining=Math.max(450,4000-(Date.now()-rideStartedAt));
+    queue(beginArrival,remaining);
+  }
+  function playChime(){
+    if(!soundOn || announcementVolume<=0)return;
     try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(`Agla station, ${st.name}. Next station, ${st.name}. Doors will open shortly.`);
-      u.rate=.96;u.pitch=1;u.volume=.7;
-      window.speechSynthesis.speak(u);
-    }catch(_){/* no audio availability should never block the website */}
+      const AudioCtx=window.AudioContext || window.webkitAudioContext;
+      if(!AudioCtx)return;
+      audioContext=audioContext || new AudioCtx();
+      if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});
+      const start=audioContext.currentTime+.06;
+      // Two gentle original station tones (not a recording of an official announcement).
+      [660,880].forEach((frequency,i)=>{
+        const o=audioContext.createOscillator(),g=audioContext.createGain();
+        o.type='sine';o.frequency.value=frequency;o.connect(g);g.connect(audioContext.destination);
+        const t=start+i*.2;
+        g.gain.setValueAtTime(.0001,t);
+        g.gain.exponentialRampToValueAtTime(Math.max(.0001,.06*announcementVolume),t+.035);
+        g.gain.exponentialRampToValueAtTime(.0001,t+.3);
+        o.start(t);o.stop(t+.32);
+      });
+    }catch(_){ /* Chime is an optional enhancement. */ }
+  }
+  function playAnnouncement(st, syncWithRide=true){
+    stopSpeech();
+    const token=speechId;
+    const lines=announcementLines(st);
+    if(!soundOn || announcementVolume===0){
+      $('announcementStatus').textContent='ANNOUNCEMENTS MUTED';
+      caption(lines.join(' '),'TEXT ONLY');
+      if(syncWithRide) queue(beginArrivalWhenReady,3200);
+      return;
+    }
+    if(!('speechSynthesis' in window)){
+      $('announcementStatus').textContent='ANNOUNCEMENT CAPTIONS';
+      caption(lines.join(' '),'AUDIO UNAVAILABLE');
+      if(syncWithRide) queue(beginArrivalWhenReady,3500);
+      return;
+    }
+    $('announcementStatus').textContent='STATION ANNOUNCEMENT';
+    $('announcementBox').classList.add('is-speaking');
+    playChime();
+    let index=0;
+    // A watchdog is necessary because some mobile browsers never fire speech onend.
+    const watchdog=setTimeout(()=>{
+      if(token!==speechId)return;
+      stopSpeech();
+      $('announcementStatus').textContent='ANNOUNCEMENT COMPLETE';
+      caption(lines[lines.length-1],'FINISHED');
+      if(syncWithRide)beginArrivalWhenReady();
+    },26000);
+    speechTimeout=watchdog;
+    function finished(){
+      if(token!==speechId)return;
+      clearTimeout(watchdog);speechTimeout=null;
+      $('announcementBox').classList.remove('is-speaking');
+      $('announcementStatus').textContent='ANNOUNCEMENT COMPLETE';
+      caption('We have arrived. The doors will open shortly.','COMPLETE');
+      if(syncWithRide)beginArrivalWhenReady();
+    }
+    function next(){
+      if(token!==speechId)return;
+      if(index===lines.length){finished();return;}
+      const line=lines[index];
+      caption(line,`${index+1} / ${lines.length}`);
+      const u=new SpeechSynthesisUtterance(line);
+      const voice=preferredVoice();if(voice)u.voice=voice;
+      u.lang=voice?.lang || 'en-IN';u.rate=.86;u.pitch=.98;u.volume=announcementVolume;
+      let moved=false;
+      const move=()=>{
+        if(moved || token!==speechId)return;
+        moved=true;index++;
+        // Short pauses are intentional: this should sound like an announcement,
+        // not four sentences rushed together.
+        const t=setTimeout(next,index===lines.length?300:480);
+        timers.push(t);
+      };
+      u.onend=move;
+      u.onerror=move;
+      try{speechSynthesis.speak(u)}catch(_){move()}
+    }
+    next();
   }
   function renderCards(st){
     const list=studentsAt(st.id);
@@ -312,7 +464,7 @@ window.PLACEMENT_DATA = {
   function startTrip(id){
     const st=stationById(id);
     if(!st) return;
-    cancelQueued(); currentStation=st;
+    cancelQueued(); stopSpeech(); currentStation=st; rideStartedAt=Date.now();
     lastFocused=document.activeElement;
     $('mapCard').classList.add('is-zooming');
     $('tripLine').textContent=st.line.toUpperCase();
@@ -329,18 +481,18 @@ window.PLACEMENT_DATA = {
     document.getElementById('platformPeopleDescription').textContent=st.kind === 'external' ? 'Division B students with external placements' : 'Division B students placed here';
     $('platformCity').textContent=st.cityLabel;
     renderCards(st);
+    $('journey').style.setProperty('--travel-time',soundOn ? '18s' : '2.75s');
     setPhase('ride');
     $('journey').classList.add('active');
     $('journey').setAttribute('aria-hidden','false');
     $('journey').scrollTop=0;
     document.body.style.overflow='hidden';
-    announce(st);
+    playAnnouncement(st,true);
     $('tripBack').focus({preventScroll:true});
-    queue(beginArrival,2800);
   }
   function beginArrival(){
     if(phase==='map')return;
-    cancelQueued(); setPhase('arrival');
+    cancelQueued(); stopSpeech(); setPhase('arrival');
     $('journeyPhaseLabel').textContent='NOW ARRIVING · PLEASE STAND CLEAR';
     $('journeyHeadline').innerHTML=`Welcome to<br/><em>${esc(currentStation.name)}.</em>`;
     $('journeyDescription').textContent=`We've arrived. The doors are opening to reveal ${studentsAt(currentStation.id).length} placement pass${studentsAt(currentStation.id).length===1?'':'es'}.`;
@@ -348,11 +500,11 @@ window.PLACEMENT_DATA = {
   }
   function skipTrip(){
     if(phase==='map' || phase==='reveal')return;
-    beginArrival();cancelQueued();
+    stopSpeech();beginArrival();cancelQueued();
     queue(()=>setPhase('reveal'),40);
   }
   function closeTrip(){
-    cancelQueued();if('speechSynthesis' in window)try{speechSynthesis.cancel()}catch(_){}
+    cancelQueued();stopSpeech();
     $('journey').classList.remove('active');
     $('journey').setAttribute('aria-hidden','true');
     $('mapCard').classList.remove('is-zooming');
@@ -371,13 +523,75 @@ window.PLACEMENT_DATA = {
   }
   function openDirectory(){lastFocused=document.activeElement;directoryRows();$('studentSearch').value='';$('directoryModal').classList.add('active');$('directoryModal').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('studentSearch').focus();}
   function closeDirectory(){$('directoryModal').classList.remove('active');$('directoryModal').setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocused && lastFocused.isConnected)lastFocused.focus({preventScroll:true});}
-  function soundToggle(){
-    soundOn=!soundOn;$('soundButton').classList.toggle('sound-on',soundOn);
-    $('soundButton').setAttribute('aria-label',soundOn?'Turn station announcements off':'Turn station announcements on');
-    $('soundButton').title=soundOn?'Sound on':'Sound off';
-    const toast=$('toast'); toast.textContent=soundOn?'Announcements enabled ♪':'Announcements muted';toast.classList.add('show');clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>toast.classList.remove('show'),1900);
-    if(!soundOn && 'speechSynthesis' in window)try{speechSynthesis.cancel()}catch(_){}
+  function updateSoundControls(){
+    $('soundButton').classList.toggle('sound-on',soundOn && announcementVolume>0);
+    $('soundButton').setAttribute('aria-label',soundOn?'Mute metro announcements':'Enable metro announcements');
+    $('soundButton').title=soundOn?'Announcements on':'Announcements muted';
+    $('volumeSlider').value=Math.round(announcementVolume*100);
+    $('volumeValue').textContent=Math.round(announcementVolume*100)+'%';
+    $('rideVolume').value=Math.round(announcementVolume*100);
+    $('rideVolumeValue').textContent=Math.round(announcementVolume*100)+'%';
   }
+  function showToast(message){
+    const el=$('toast');el.textContent=message;el.classList.add('show');
+    clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>el.classList.remove('show'),1900);
+  }
+  function soundToggle(){
+    soundOn=!soundOn;
+    if(soundOn && announcementVolume===0)announcementVolume=.85;
+    updateSoundControls();recordAudioSettings();
+    showToast(soundOn?'Announcements on · choose a station ♪':'Announcements muted');
+    if(phase==='ride'){
+      cancelQueued();
+      if(soundOn)playAnnouncement(currentStation,true);
+      else {stopSpeech();$('announcementStatus').textContent='ANNOUNCEMENTS MUTED';caption(announcementLines(currentStation).join(' '),'TEXT ONLY');queue(beginArrivalWhenReady,1200)}
+    }else if(!soundOn)stopSpeech();
+  }
+  function replayAnnouncement(){
+    if(!currentStation)return;
+    if(!soundOn){soundOn=true;if(announcementVolume===0)announcementVolume=.85;updateSoundControls();recordAudioSettings()}
+    if(phase==='ride') {cancelQueued();rideStartedAt=Date.now();}
+    playAnnouncement(currentStation,phase==='ride');
+  }
+  $('volumeButton').addEventListener('click',()=>{
+    const open=$('volumePanel').hidden;
+    $('volumePanel').hidden=!open;
+    $('volumeButton').setAttribute('aria-expanded',String(open));
+  });
+  $('volumeSlider').addEventListener('input',e=>{
+    announcementVolume=Number(e.target.value)/100;
+    soundOn=announcementVolume>0;
+    updateSoundControls();recordAudioSettings();
+  });
+  $('volumeSlider').addEventListener('change',()=>{
+    if(phase==='ride'){
+      cancelQueued();
+      if(soundOn)playAnnouncement(currentStation,true);
+      else {stopSpeech();$('announcementStatus').textContent='ANNOUNCEMENTS MUTED';caption(announcementLines(currentStation).join(' '),'TEXT ONLY');queue(beginArrivalWhenReady,1200)}
+    }
+  });
+  $('rideVolume').addEventListener('input',e=>{
+    const wasOn=soundOn;
+    announcementVolume=Number(e.target.value)/100;
+    soundOn=announcementVolume>0;
+    updateSoundControls();recordAudioSettings();
+    if(!soundOn && wasOn && phase==='ride'){
+      cancelQueued();stopSpeech();
+      $('announcementStatus').textContent='ANNOUNCEMENTS MUTED';
+      caption(announcementLines(currentStation).join(' '),'TEXT ONLY');
+      queue(beginArrivalWhenReady,1200);
+    }
+  });
+  $('rideVolume').addEventListener('change',()=>{
+    if(phase==='ride' && soundOn && !$('announcementBox').classList.contains('is-speaking')){
+      cancelQueued();playAnnouncement(currentStation,true);
+    }
+  });
+  document.addEventListener('pointerdown',e=>{
+    if(!e.target.closest('.sound-controls')){$('volumePanel').hidden=true;$('volumeButton').setAttribute('aria-expanded','false')}
+  });
+  $('replayAnnouncement').addEventListener('click',replayAnnouncement);
+  updateSoundControls();
   $('tripSkip').addEventListener('click',skipTrip);
   $('tripBack').addEventListener('click',closeTrip);
   $('anotherStation').addEventListener('click',closeTrip);
