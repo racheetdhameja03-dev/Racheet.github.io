@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Division B Placement Metro — an interactive celebration of classmates and their first destinations." />
+  <meta name="theme-color" content="#eaf3f8" />
+  <title>Division B · Placement Metro</title>
+<style>
+:root{--ink:#11273a;--muted:#718392;--canvas:#eef5f7;--paper:#fff;--edge:#d9e5e9;--blue:#2378e9;--dark:#061929;--green:#29ab88;--font:'DM Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--display:'Outfit',var(--font)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font);color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased}button,input{font:inherit}button{cursor:pointer}button:focus-visible,[tabindex]:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #2b82fd;outline-offset:4px}button:disabled{cursor:not-allowed}a{text-decoration:none;color:inherit}::selection{background:#b5d5f9;color:#102c49}
+.site-wrap{max-width:1620px;margin:auto;min-height:100vh;padding:0 52px}.topbar{height:90px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d7e5e8}.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:46px;height:46px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:14px;color:var(--ink)}.brand-mark svg{width:30px}.brand-type{display:flex;flex-direction:column;line-height:1.05;letter-spacing:.035em}.brand-type strong{font:800 17px var(--display)}.brand-type small{font-size:10px;font-weight:800;letter-spacing:.16em;margin-top:5px}.topbar-middle{font-size:10px;font-weight:800;letter-spacing:.14em;display:flex;align-items:center;gap:12px;color:#5c7584}.live-dot,.ping-dot{width:7px;height:7px;border-radius:50%;background:#20ba80;box-shadow:0 0 0 4px #d8f3e5;display:inline-block}.topbar-divider{height:15px;width:1px;background:#bed0d7;margin:0 6px}.topbar-actions{display:flex;align-items:center;gap:14px}.subtle-btn{border:1px solid var(--edge);background:white;border-radius:25px;padding:12px 17px;font-size:12px;font-weight:800;color:#1d3446;box-shadow:0 3px 8px #16304a08;transition:transform .2s}.subtle-btn:hover,.round-btn:hover{transform:translateY(-2px)}.icon-small{font-size:22px;line-height:0;vertical-align:-2px;margin-right:5px}.round-btn{position:relative;background:#e0ebf1;width:41px;height:41px;border:1px solid #d4e2e8;border-radius:50%;font-size:22px;color:#466072;transition:transform .2s}.sound-slash{position:absolute;left:9px;top:20px;width:22px;height:2px;transform:rotate(-45deg);background:#cf6473}.round-btn.sound-on .sound-slash{display:none}
+.hero-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:47px 4px 30px}.hero-copy{max-width:840px}.eyebrow{display:flex;align-items:center;gap:10px;letter-spacing:.17em;color:#5f7787;font-size:10px;font-weight:900}.eyebrow-line{width:27px;height:2px;background:var(--blue)}h1,h2,p{margin-top:0}.hero-copy h1{margin:12px 0 10px;font:800 clamp(38px,4.05vw,67px)/1.08 var(--display);letter-spacing:-.045em}.hero-copy h1 em{color:#2378e9;font-style:normal}.punctuation{color:#f4ad41;vertical-align:top;font-size:25px;margin-left:10px}.hero-copy p{max-width:590px;color:#6b7d8c;font-size:14px;line-height:1.68;margin-bottom:0}.hero-stamp{margin:0 17px 0 0;display:flex;align-items:center;flex-direction:column;transform:rotate(10deg);color:#1e4764}.stamp-inner{height:104px;width:104px;border:3px double #aac4d1;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;line-height:1;outline:1px dashed #b3cbd6;outline-offset:5px;background:#f4fafb}.stamp-inner span{font-size:10px;font-weight:900;letter-spacing:.16em}.stamp-inner strong{font:900 45px/.98 var(--display)}.hero-stamp small{margin-top:16px;font-size:9px;font-weight:800;letter-spacing:.11em}
+.experience{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(290px,.85fr);gap:21px;align-items:stretch}.map-card,.progress-card,.station-list-card{background:#fff;border:1px solid #dce6ea;border-radius:24px;box-shadow:0 11px 36px #183b5210}.map-card{display:flex;flex-direction:column;min-height:635px;overflow:hidden;transition:transform .45s ease,filter .45s ease}.map-card.is-zooming{transform:scale(1.07);filter:blur(3px)}.map-toolbar{display:flex;align-items:center;justify-content:space-between;padding:25px 29px 10px;position:relative;z-index:2}.map-title{display:flex;align-items:center;gap:12px}.map-title-icon{font-size:24px;background:#edf4ff;width:43px;height:43px;border-radius:13px;display:grid;place-items:center;color:#2175da}.map-title small{color:#95a5ae;font-size:9px;font-weight:900;letter-spacing:.15em}.map-title h2{margin:1px 0 0;font:750 19px var(--display);letter-spacing:-.025em}.map-mode{font-size:9px;font-weight:900;letter-spacing:.095em;display:flex;align-items:center;gap:11px;background:#f4f8f8;padding:10px 13px;border-radius:30px;color:#537183}.ping-dot{width:6px;height:6px;box-shadow:none}.map-viewport{flex:1;min-height:0;background:radial-gradient(circle at 50% 48%,#f5fafc 0,#fff 65%);position:relative;display:flex;justify-content:center;align-items:center}.map-viewport:before{content:"";pointer-events:none;position:absolute;inset:0;background-image:radial-gradient(#bfd3de 1px,transparent 1px);background-size:18px 18px;opacity:.16;mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}#metroMap{width:100%;height:100%;max-height:575px;min-height:465px;overflow:visible;position:relative;z-index:1}#metroMap .route-shadow{stroke:#122e3b;opacity:.06;stroke-width:20;fill:none;stroke-linecap:round;stroke-linejoin:round}#metroMap .route{stroke-width:9;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.94}#metroMap .minor-stop{fill:white;stroke-width:4}#metroMap .station-group{cursor:pointer;outline:none}#metroMap .station-group .station-halo{transform-box:fill-box;transform-origin:center;transition:transform .2s,opacity .2s;opacity:0}#metroMap .station-group:hover .station-halo,#metroMap .station-group:focus-visible .station-halo{transform:scale(1.14);opacity:.25}#metroMap .station-outer{transition:filter .2s,transform .2s;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 5px 6px #153c4d30)}#metroMap .station-group:hover .station-outer,#metroMap .station-group:focus-visible .station-outer{transform:scale(1.14);filter:drop-shadow(0 10px 12px #153c4d33)}#metroMap .station-label{font:800 23px var(--display);fill:#153147;paint-order:stroke;stroke:white;stroke-width:4px;stroke-linejoin:round}#metroMap .station-city{font:700 12px var(--font);fill:#7b909f}#metroMap .station-count{font:900 15px var(--display);fill:white;text-anchor:middle}#metroMap .hub-total{font:900 41px var(--display);fill:#122d44;text-anchor:middle;letter-spacing:-2px}#metroMap .hub-caption{font:900 12px var(--font);fill:#607c8d;text-anchor:middle;letter-spacing:1.4px}#metroMap .hub-label{font:800 14px var(--display);fill:#1f77da;text-anchor:middle;letter-spacing:1.2px}#metroMap .tiny-label{font:900 12px var(--font);fill:#afc1cc;letter-spacing:1.5px}.map-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid #edf2f4;padding:15px 28px 19px;font-size:12px;color:#213c4c;z-index:2;background:#fff}.touch-indicator{width:30px;height:30px;border-radius:50%;display:inline-grid;place-items:center;background:#e7f2ff;color:#1b77e5;font-size:20px;vertical-align:middle;margin-right:8px}.muted{color:#92a4b0}.map-key{display:flex;align-items:center;gap:6px}.map-key span{background:var(--c);width:8px;height:8px;border-radius:50%}.map-key small{font-size:9px;letter-spacing:.07em;font-weight:900;color:#8aa0ad;margin-left:9px}
+.dashboard-side{display:flex;flex-direction:column;gap:18px}.progress-card{background:#102e42;color:#fff;padding:26px 28px 23px;flex:0 0 auto;border-color:#17384c;position:relative;overflow:hidden}.progress-card:after{content:"";position:absolute;right:-45px;top:-82px;width:255px;height:255px;border:1px solid #49738a44;border-radius:50%;box-shadow:0 0 0 32px #49738a12,0 0 0 80px #49738a10;pointer-events:none}.aside-label{font-size:10px;font-weight:900;letter-spacing:.12em;display:flex;align-items:center;gap:8px;white-space:nowrap}.small-square{display:inline-grid;place-items:center;width:24px;height:24px;color:#122b43;background:#d4eff8;border-radius:7px;font-size:18px}.pulse-live{color:#8bdcba;font-size:9px;margin-left:auto;letter-spacing:.08em}.counter-wrapper{display:flex;align-items:center;gap:14px;margin-top:24px;margin-bottom:22px;position:relative;z-index:1}.big-counter{font:850 clamp(50px,5.1vw,81px)/1 var(--display);letter-spacing:-.065em;white-space:nowrap}.counter-divider{color:#658094;font-size:.65em;margin:0 4px}.counter-total{font-size:.62em;color:#90acba}.counter-sub{font-size:12px;color:#9db6c6;line-height:1.65}.track{height:8px;background:#28485b;border-radius:20px;overflow:hidden}.track-fill{height:100%;background:linear-gradient(90deg,#65d9b4,#c0eadc);border-radius:20px;transition:width .5s}.stat-line{display:flex;align-items:center;gap:4px;color:#a7bdc8;font-size:10px;margin-top:13px}.stat-line strong{color:white;font-size:12px}.stat-line span{margin-left:auto;color:#84cbaa;font-size:10px}
+.station-list-card{padding:23px 21px 15px;flex:1}.station-list-card .aside-label{color:#516979;justify-content:space-between;padding:0 5px}.station-count{background:#edf3f5;color:#738995;padding:6px 9px;border-radius:7px;font-size:9px;letter-spacing:0}.station-list-card>p{font:700 21px var(--display);letter-spacing:-.03em;margin:16px 5px}.station-list{display:flex;flex-direction:column;gap:7px}.station-link{border:1px solid transparent;background:transparent;display:flex;align-items:center;gap:12px;text-align:left;padding:12px 10px;border-radius:12px;width:100%;transition:background .2s,transform .2s,border-color .2s}.station-link:hover,.station-link:focus-visible{background:#f1f7f9;border-color:#dfebee;transform:translateX(3px)}.station-icon{--station-color:#2475df;border:3px solid var(--station-color);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.station-icon:before{content:"";background:var(--station-color);width:12px;height:12px;border-radius:50%}.station-name{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}.station-name strong{font:800 13px var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.station-name small{font-size:10px;color:#8ba0ac}.station-people{min-width:25px;height:25px;padding:0 7px;display:grid;place-items:center;background:#eff4f6;border-radius:8px;color:#4b677a;font:850 12px var(--display)}.station-arrow{color:#aec0ca;font-size:16px}.side-footer{border-top:1px dashed #dce7e9;margin-top:11px;padding:15px 4px 0;color:#9aabb4;font-size:10px;display:flex;align-items:center;gap:8px}.side-footer span{font-size:20px;color:#63b7a8}.bottom-line{display:flex;align-items:center;gap:7px;padding:25px 0;color:#8295a0;font-size:10px;font-weight:800;letter-spacing:.08em}.bottom-line strong{color:#536d7b;letter-spacing:0;text-transform:none;font-size:11px}.bottom-line strong span{font-size:17px;color:#ee7373}.bottom-line small{margin-left:auto;font-size:10px;letter-spacing:.09em}footer{display:flex;justify-content:space-between;border-top:1px solid var(--edge);padding:19px 0 27px;gap:16px;font-size:9px;color:#8399a4;font-weight:800;letter-spacing:.08em}
+/* Immersive interactive train journey */
+.journey{position:fixed;z-index:45;inset:0;opacity:0;visibility:hidden;pointer-events:none;overflow-y:auto;background:#071b2a;color:#f5f9fb;transition:opacity .4s,visibility .4s;background-image:radial-gradient(ellipse at 65% 34%,#173c53 0,transparent 53%),radial-gradient(ellipse at 10% 88%,#0c334a 0,transparent 47%)}.journey.active{opacity:1;visibility:visible;pointer-events:auto}.journey:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:50px 50px;mask-image:linear-gradient(90deg,#0004,transparent);pointer-events:none}.journey-topbar{max-width:1560px;margin:auto;height:94px;display:flex;align-items:center;justify-content:space-between;padding:0 55px;border-bottom:1px solid #ffffff16;position:relative;z-index:2}.journey-logo{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.12em;font-weight:800;color:#a4bfce}.journey-logo b{color:white}.journey-logo-ring{width:37px;height:37px;border-radius:50%;border:5px solid #3485f3;background:white;color:#236cbd;display:grid;place-items:center;font:900 16px var(--display);letter-spacing:0}.journey-divider{color:#456477;padding:0 4px}.journey-actions{display:flex;gap:8px}.journey-action{border:1px solid #49657a;background:#ffffff0a;color:#eaf5fb;border-radius:25px;padding:12px 16px;font-size:12px;font-weight:800}.journey-action:hover{background:#ffffff23}.journey-action span{margin-left:7px}.journey-layout{max-width:1510px;margin:auto;padding:47px 54px 48px;position:relative;z-index:1;display:grid;grid-template-columns:minmax(240px,.42fr) minmax(460px,1fr);gap:37px;align-items:center;min-height:calc(100vh - 96px)}.journey-lede{align-self:start;padding-top:52px}.tag-text{letter-spacing:.18em;font-weight:900;color:#7ed8bc;font-size:11px}.journey-lede h2{font:850 clamp(46px,4.4vw,74px)/1.06 var(--display);letter-spacing:-.065em;margin:21px 0}.journey-lede h2 em{font-style:normal;color:#77cfae}.journey-lede p{font-size:14px;color:#9bb3c1;line-height:1.8;max-width:350px}.journey-progress-block{margin-top:66px;max-width:380px}.progress-labels,.journey-progress-bottom{display:flex;justify-content:space-between;color:#9fb7c7;font-size:9px;font-weight:900;letter-spacing:.1em}.journey-progress{height:5px;background:#375267;border-radius:20px;margin:18px 4px;position:relative}.journey-progress-fill{height:5px;width:0;background:#85dcc0;border-radius:20px}.journey-train{position:absolute;left:0;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:29px;height:29px;border-radius:9px;background:#d7f6eb;color:#086358;box-shadow:0 0 0 6px #7fdac01a}.phase-ride .journey-progress-fill{animation:travel-progress 2.75s linear forwards}.phase-ride .journey-train{animation:travel-marker 2.75s linear forwards}.phase-reveal .journey-progress-fill,.phase-arrival .journey-progress-fill{width:100%}.phase-reveal .journey-train,.phase-arrival .journey-train{left:100%}@keyframes travel-progress{to{width:100%}}@keyframes travel-marker{to{left:100%}}
+.carriage{position:relative;border:12px solid #496174;border-radius:38px;background:#243d4e;box-shadow:0 38px 80px #0008,inset 0 0 0 3px #96b2c148;overflow:hidden;min-height:585px}.carriage-roof{height:134px;display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,#a6b8c3,#e0e8eb 50%,#6a889a);padding:13px 45px 15px;box-shadow:0 8px 18px #0003;position:relative;z-index:2}.hanger{font-size:42px;color:#40657b;font-weight:900;line-height:1.2}.led{min-width:64%;height:102px;background:#10202b;border:7px solid #596772;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 5px 8px #0009,0 4px 9px #11232e54}.led small{color:#72c5d4;font-size:9px;letter-spacing:.22em;font-weight:800}.led strong{font:850 clamp(26px,3vw,45px) var(--display);color:#ffa957;text-shadow:0 0 12px #f895358f;letter-spacing:.04em;text-transform:uppercase;margin:0}.led-sub{font-size:10px;color:#d7e5ec;letter-spacing:.07em}.carriage-body{position:relative;padding:17px 48px 24px;background:linear-gradient(90deg,#8fa5b4,#dbe5e8 8%,#e3eced 91%,#87a0af);min-height:370px}.grabrail{width:11px;height:335px;position:absolute;top:10px;border-radius:8px;background:linear-gradient(90deg,#374c5b,#fff,#a4b5bf,#394c5d);box-shadow:0 2px 8px #253c4c66;z-index:2}.grabrail-left{left:28px}.grabrail-right{right:28px}.metro-window{height:337px;border:13px solid #142d40;border-radius:30px;overflow:hidden;position:relative;box-shadow:inset 0 0 0 3px #738d9f,0 9px 17px #0004;background:#194b6c}.window-scenery{position:absolute;inset:0;overflow:hidden}.window-reflection{pointer-events:none;position:absolute;inset:0;z-index:3;background:linear-gradient(120deg,transparent 36%,#ffffff12 36%,#ffffff14 43%,transparent 43%,transparent 48%,#ffffff0b 48%,#ffffff0b 50%,transparent 50%)}.window-sticker{position:absolute;bottom:11px;right:17px;color:#fff;z-index:4;text-align:right;text-shadow:0 2px 7px #17384c;font-size:9px;line-height:1.5;font-weight:900;letter-spacing:.07em;opacity:.83}.carriage-floor{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 42px;color:#d2e0e7;font-size:10px;letter-spacing:.18em;font-weight:900;background:linear-gradient(#274555,#173244);border-top:1px solid #7b97a3}.carriage-floor>span:first-child,.carriage-floor>span:last-child{color:#96c2cb}.scene{height:100%;position:absolute;inset:0;overflow:hidden}.scene-background{position:absolute;inset:0;background:linear-gradient(180deg,#b6ddf0 0%,#eedfc6 61%,#aaafad 100%)}.scene-mumbai .scene-background{background:linear-gradient(180deg,#84adcb,#d7e6e6 48%,#ecbfa5 80%,#81a2ab)}.scene-bengaluru .scene-background{background:linear-gradient(180deg,#72b2cf,#b9e6df 53%,#d2d6a6 83%,#72b58d)}.scene-ahmedabad .scene-background{background:linear-gradient(180deg,#cc9f98,#e8c3a8 49%,#ffda9d 75%,#b39382)}.scene-name{position:absolute;z-index:5;top:18px;left:22px;color:white;background:#102f44aa;padding:8px 12px;border:1px solid #ffffff5c;border-radius:8px;font:800 11px var(--font);letter-spacing:.18em;box-shadow:0 5px 15px #0002}.city-svg{position:absolute;bottom:-8px;left:0;width:100%;height:100%;filter:drop-shadow(0 4px 0 #172d4511)}.scene-split .split-half{position:absolute;inset:0}.scene-split .split-half:first-child{clip-path:polygon(0 0,58% 0,42% 100%,0 100%)}.scene-split .split-half:nth-child(2){clip-path:polygon(58% 0,100% 0,100% 100%,42% 100%)}.scene-split .split-half:nth-child(2) .scene-name{left:auto;right:15px}.split-border{position:absolute;z-index:8;left:49%;top:-11%;height:130%;width:3px;transform:rotate(18deg);background:#fff;box-shadow:0 0 0 6px #ffffff30,0 0 35px #0006}.split-badge{position:absolute;z-index:9;top:45%;left:49%;transform:translate(-50%,-50%);border-radius:30px;background:#fff;color:#1a4761;font:900 11px var(--font);letter-spacing:.13em;padding:8px 10px;box-shadow:0 4px 14px #0004}.scene-india{background:radial-gradient(circle at 55% 40%,#2d7085,#0c314a 80%);display:flex;align-items:center;justify-content:center;gap:30px}.scene-india .india-globe{height:92%;max-width:50%;filter:drop-shadow(0 10px 16px #0006)}.india-words{z-index:1;display:flex;align-items:flex-start;flex-direction:column;gap:8px}.india-words .eyeword{font:900 12px var(--font);letter-spacing:.24em;color:#89e0b4}.india-words .letsee{font:900 clamp(32px,4vw,58px)/1 var(--display);letter-spacing:-.03em;color:#fff}.india-words p{color:#bddeea;font-size:12px;max-width:150px;line-height:1.5}.scene:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#19445e17,transparent 20%,transparent 80%,#19445e17);pointer-events:none}.phase-ride .window-scenery{animation:gentle-jostle 1.4s ease-in-out infinite alternate}@keyframes gentle-jostle{0%{transform:scale(1.02) translateX(-5px)}100%{transform:scale(1.05) translateX(5px)}}
+/* Arrival, cards and moving sliding doors */
+.arrival-platform{display:none;position:relative;grid-column:2;min-height:580px;border-radius:29px;background:#f8fafb;color:#143047;box-shadow:0 35px 78px #0005;border:7px solid #718b98;overflow:hidden}.phase-arrival .arrival-platform,.phase-reveal .arrival-platform{display:block}.phase-arrival .carriage,.phase-reveal .carriage{display:none}.platform-heading{display:flex;justify-content:space-between;align-items:center;padding:25px 29px 22px;background:linear-gradient(125deg,#fbfdfc,#e5f1f7);border-bottom:3px solid #d0dce2}.platform-eyebrow{color:#54798d;font-size:9px;letter-spacing:.15em;font-weight:900}.platform-heading h2{font:900 clamp(27px,3.4vw,47px)/1 var(--display);letter-spacing:-.04em;margin:7px 0}.platform-flag{font:800 10px var(--font);letter-spacing:.16em;color:#4e7187;vertical-align:middle;margin-left:7px}.platform-heading p{font-size:12px;color:#6e8797;margin:0}.dot-sep{margin:0 8px}.arrival-roundel{border:6px solid #2d83e7;border-radius:50%;width:72px;height:72px;display:grid;place-items:center;color:#2377d9;font:900 27px var(--display);position:relative}.arrival-roundel span{position:absolute;background:#e5f1f7;bottom:-10px;font-size:12px;padding:0 7px;color:#537e94}.door-bay{height:380px;position:relative;overflow:hidden;background:repeating-linear-gradient(90deg,#eaf0f2 0,#eaf0f2 75px,#dbe7ea 76px,#eaf0f2 80px);border-top:8px solid #29485a;border-bottom:11px solid #1a3c50}.behind-doors{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:14px;padding:20px 21px 32px;overflow-x:auto}.pass-card{flex:0 1 190px;min-width:125px;height:282px;max-width:190px;border:1px solid #d6e4e9;background:#fff;border-radius:14px;box-shadow:0 12px 23px #19435a26;display:flex;flex-direction:column;align-items:center;padding:15px 9px 0;text-align:center;position:relative;overflow:hidden;opacity:0;transform:translateY(28px) scale(.95);transition:opacity .45s,transform .6s}.phase-reveal .pass-card{opacity:1;transform:translateY(0) scale(1)}.phase-reveal .pass-card:nth-child(2){transition-delay:.17s}.phase-reveal .pass-card:nth-child(3){transition-delay:.32s}.phase-reveal .pass-card:nth-child(4){transition-delay:.47s}.phase-reveal .pass-card:nth-child(5){transition-delay:.58s}.pass-top{font-size:9px;color:#426c82;font-weight:900;letter-spacing:.13em;display:flex;align-items:center;gap:5px}.pass-top span{font-size:17px;color:var(--card-color)}.avatar{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:linear-gradient(145deg,color-mix(in srgb,var(--card-color) 13%,white),#eef4f8);color:var(--card-color);font:900 25px var(--display);margin-top:16px;border:3px solid #fff;box-shadow:0 0 0 1px #d7e4e9;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.pass-name{font:850 clamp(11px,1.1vw,14px)/1.2 var(--display);min-height:34px;margin:10px 0 6px;display:flex;align-items:center;justify-content:center}.pass-company{font-size:10px;color:#688397;font-weight:700}.pass-date{margin-top:8px;font:800 9px var(--font);color:#94a5af;letter-spacing:.045em}.pass-footer{height:29px;display:flex;align-items:center;justify-content:center;background:var(--card-color);color:#fff;position:absolute;bottom:0;left:0;right:0;font-size:9px;letter-spacing:.08em;font-weight:900}.sliding-door{position:absolute;top:0;bottom:0;width:50%;z-index:6;background:linear-gradient(110deg,#6d889a,#c4d2db 13%,#f5fafb 54%,#b2c4cc 86%,#6d8899);box-shadow:0 0 14px #11384f55;transition:transform 1.15s cubic-bezier(.22,.75,.15,1)}.sliding-door-left{left:0;border-right:9px solid #516b7e}.sliding-door-right{right:0;border-left:9px solid #516b7e}.door-window{position:absolute;width:54%;top:19%;height:43%;left:22%;background:linear-gradient(145deg,#32607e66,#a9d3e4b0);border:10px solid #658294;border-radius:17px;box-shadow:inset 0 0 24px #fff5}.door-handle{position:absolute;top:48%;height:37px;width:7px;background:#456679;border-radius:10px;box-shadow:0 0 0 3px #aabcc6}.sliding-door-left .door-handle{right:17px}.sliding-door-right .door-handle{left:17px}.phase-reveal .sliding-door-left{transform:translateX(-105%)}.phase-reveal .sliding-door-right{transform:translateX(105%)}.platform-yellow-line{position:absolute;bottom:0;left:0;right:0;height:10px;z-index:5;background:repeating-linear-gradient(45deg,#ffc42b 0,#ffc42b 10px,#d49d11 10px,#d49d11 12px)}.arrival-bottom{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:19px 24px;color:#617e8f;font-size:10px;font-weight:700}.arrival-bottom strong{color:#2b5d7a}.arrival-bottom button{border:0;background:#1d78d5;color:#fff;padding:13px 16px;border-radius:30px;font-weight:800;font-size:11px;white-space:nowrap}.arrival-bottom button:hover{background:#0d5dad}.arrival-bottom button span{margin-left:8px}.phase-arrival .journey-lede,.phase-reveal .journey-lede{align-self:start}.phase-arrival .journey-lede h2 em,.phase-reveal .journey-lede h2 em{color:#f7b05e}.phase-reveal #tripSkip,.phase-arrival #tripSkip{display:none}.phase-reveal .journey-layout{align-items:center}
+/* Directory */
+.modal{position:fixed;inset:0;z-index:100;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .25s,visibility .25s}.modal.active{visibility:visible;opacity:1;pointer-events:auto}.modal-backdrop{position:absolute;inset:0;background:#08263c9c;backdrop-filter:blur(8px)}.directory-sheet{position:absolute;right:0;top:0;bottom:0;width:min(620px,100%);background:#f8fbfc;box-shadow:-18px 0 65px #0d24376a;overflow-y:auto;padding:43px 38px}.directory-head{display:flex;align-items:start;justify-content:space-between;gap:15px}.directory-head .tag-text{color:#2b91a7}.directory-head h2{font:900 35px var(--display);letter-spacing:-.04em;margin:11px 0 7px}.directory-head h2 span{color:#3296be}.directory-head p{color:#7a919e;font-size:13px}.modal-close{border:0;background:#e7f0f4;border-radius:50%;width:42px;height:42px;font-size:15px;color:#2c5069}.directory-controls{margin:24px 0 19px}.directory-controls label{display:block;font-size:10px;font-weight:900;letter-spacing:.14em;color:#6d8494;margin-bottom:9px}.directory-controls input{width:100%;height:48px;padding:0 15px;border-radius:11px;background:#fff;border:1px solid #d2e2e9;color:#143047;outline-color:#4da0de}.directory-rows{display:flex;flex-direction:column;gap:9px}.directory-row{display:flex;align-items:center;gap:13px;background:white;border:1px solid #e0e9ee;border-radius:14px;padding:13px}.directory-avatar{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;font:900 14px var(--display);background:color-mix(in srgb,var(--dir-color) 13%,white);color:var(--dir-color);overflow:hidden;flex-shrink:0}.directory-avatar img{width:100%;height:100%;object-fit:cover}.directory-name{flex:1;min-width:0}.directory-name strong{display:block;font-size:12px}.directory-name span{font-size:10px;color:#8398a5}.directory-tag{font:800 10px var(--font);color:var(--dir-color);background:color-mix(in srgb,var(--dir-color) 11%,white);padding:8px 9px;border-radius:20px;white-space:nowrap}.directory-disclaimer{color:#99a9b3;font-size:11px;line-height:1.7;margin:23px 2px}.empty-list{color:#8a9ca6;font-size:13px;text-align:center;padding:30px}.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,20px);background:#10354c;color:white;z-index:140;border-radius:30px;padding:14px 22px;font-size:12px;font-weight:800;box-shadow:0 10px 30px #0003;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:1140px){.site-wrap{padding:0 25px}.experience{grid-template-columns:minmax(0,1.55fr) minmax(268px,.85fr)}.topbar-middle{display:none}.journey-layout{grid-template-columns:minmax(180px,.42fr) minmax(350px,1fr);padding:31px 30px;gap:25px}.journey-topbar{padding:0 30px}.carriage{min-height:530px}.carriage-body{min-height:310px}.metro-window{height:285px}.grabrail{height:290px}.arrival-platform{min-height:520px}.door-bay{height:325px}.pass-card{height:254px}.avatar{width:65px;height:65px}}
+@media (max-width:850px){.site-wrap{padding:0 18px}.topbar{height:76px}.hero-row{padding:31px 1px 26px}.hero-stamp{display:none}.hero-copy h1{font-size:46px}.experience{grid-template-columns:1fr}.map-card{min-height:565px}.dashboard-side{display:grid;grid-template-columns:1fr 1fr}.progress-card{min-height:335px}.counter-wrapper{display:block}.counter-sub{margin-top:7px}.station-list-card{min-height:335px}.station-list-card>p{font-size:18px;margin:10px 5px}.station-link{padding:8px 4px}.map-viewport svg{min-height:440px}.journey-layout{display:flex;flex-direction:column;padding:18px 20px 30px;gap:19px;align-items:stretch}.journey-lede{padding:0;align-self:auto;width:100%}.journey-lede h2{font-size:44px;margin:12px 0 8px}.journey-lede p{margin:0;font-size:12px}.journey-progress-block{margin:18px 0 0;max-width:none}.carriage{width:100%;min-height:initial}.journey-topbar{height:66px;padding:0 20px}.carriage-roof{height:105px}.led{height:82px}.carriage-body{min-height:300px}.metro-window{height:267px}.arrival-platform{width:100%}.arrival-bottom{flex-wrap:wrap}.bottom-line small{display:none}}
+@media (max-width:550px){.topbar-actions .subtle-btn{font-size:0;padding:12px 15px}.topbar-actions .icon-small{font-size:23px;margin:0}.brand-type strong{font-size:14px}.brand-type small{font-size:8px}.brand-mark{width:41px;height:41px}.round-btn{width:38px;height:38px}.hero-copy h1{font-size:39px}.hero-copy p{font-size:12px}.eyebrow{font-size:8px}.map-card{min-height:410px;border-radius:19px}.map-toolbar{padding:17px 17px 3px}.map-title-icon{width:34px;height:34px;font-size:21px}.map-title h2{font-size:15px}.map-mode{font-size:0;padding:8px}.map-viewport{min-height:320px;overflow:hidden}#metroMap{min-height:300px;transform:scale(1.08)}#metroMap .station-label{font-size:23px}#metroMap .station-city{font-size:12px}.map-footer{padding:14px;font-size:10px}.map-key small{display:none}.dashboard-side{grid-template-columns:1fr}.progress-card{min-height:initial}.counter-wrapper{display:flex}.station-list-card{min-height:initial}.bottom-line{font-size:9px;display:block;line-height:1.7}.bottom-line strong{display:inline}footer{flex-wrap:wrap;font-size:8px}.journey-topbar{padding:0 12px}.journey-logo{font-size:9px;gap:5px}.journey-logo-ring{width:27px;height:27px;border-width:4px;font-size:12px}.journey-divider,.journey-logo>span:last-child{display:none}.journey-actions{gap:3px}.journey-action{padding:10px 9px;font-size:10px}.journey-action span{margin-left:2px}.journey-layout{padding:17px 10px 20px}.journey-lede h2{font-size:37px}.journey-lede p{line-height:1.5}.carriage{border-width:6px;border-radius:22px}.carriage-roof{height:96px;padding:10px 8px 12px}.hanger{font-size:18px}.led{min-width:81%;height:75px;border-width:5px}.led strong{font-size:30px}.led-sub{font-size:9px}.carriage-body{min-height:259px;padding:11px 17px 18px}.grabrail{width:7px;height:230px;top:9px}.grabrail-left{left:8px}.grabrail-right{right:8px}.metro-window{height:229px;border:8px solid #142d40;border-radius:17px}.city-svg{height:94%}.scene-name{font-size:8px;top:10px;left:8px;padding:7px}.scene-split .split-half:nth-child(2) .scene-name{right:7px}.split-badge{font-size:8px}.carriage-floor{height:38px;padding:0 10px;font-size:7px}.carriage-floor>span:first-child,.carriage-floor>span:last-child{display:none}.scene-india{gap:9px}.scene-india .india-globe{max-width:52%}.india-words .letsee{font-size:33px}.india-words .eyeword{font-size:9px}.india-words p{font-size:9px}.arrival-platform{min-height:initial;border-width:4px;border-radius:17px}.platform-heading{padding:16px 13px}.platform-heading h2{font-size:27px}.platform-heading p{font-size:10px}.arrival-roundel{width:45px;height:45px;border-width:4px;font-size:19px}.door-bay{height:365px}.behind-doors{flex-wrap:wrap;align-content:center;gap:8px;padding:9px}.pass-card{flex-basis:calc(33.33% - 8px);min-width:88px;max-width:130px;height:245px;padding:8px 4px 0}.pass-top{font-size:7px;letter-spacing:0}.avatar{height:58px;width:58px;font-size:18px;margin-top:9px}.pass-name{font-size:11px;min-height:44px;margin:7px 0 0}.pass-company{font-size:9px}.pass-date{font-size:8px}.pass-footer{font-size:7px;height:24px}.arrival-bottom{padding:15px 12px}.directory-sheet{padding:31px 16px}.directory-head h2{font-size:27px}.directory-tag{font-size:8px}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+/* More than three placement passes on small screens: swipe horizontally rather than clipping a second row. */
+@media (max-width:550px){
+  .behind-doors.many-students{flex-wrap:nowrap;align-content:initial;justify-content:flex-start;align-items:center;overflow-x:auto;overflow-y:hidden;padding:12px 18px 32px;gap:12px;scroll-snap-type:x proximity}
+  .behind-doors.many-students .pass-card{flex:0 0 146px;width:146px;max-width:146px;min-width:146px;height:272px;scroll-snap-align:center}
+}
+
+/* New stops: NTT and independent external placements */
+.scene-undisclosed{background:radial-gradient(circle at 70% 25%,#e8dbb8,#e8d2a1 12%,transparent 27%),linear-gradient(140deg,#2c3b5f,#9e7499 55%,#d99b83);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.scene-dots{position:absolute;inset:0;background-image:radial-gradient(#fff8 1.2px,transparent 1.7px);background-size:24px 24px;opacity:.24}
+.scene-unknown-mark{position:absolute;right:12%;top:12%;font:900 clamp(130px,17vw,280px) var(--display);color:#fff2;line-height:1;transform:rotate(12deg)}
+.scene-unknown-copy{position:relative;color:#fff;text-align:left;width:75%;text-shadow:0 6px 28px #12203955}
+.scene-unknown-copy>span,.scene-independent-card>span{display:block;font:800 10px var(--font);letter-spacing:.21em;opacity:.9}
+.scene-unknown-copy strong,.scene-independent-card strong{display:block;font:900 clamp(43px,6vw,90px)/.9 var(--display);letter-spacing:-.035em;margin:12px 0}
+.scene-unknown-copy small,.scene-independent-card small{display:block;font:600 12px/1.5 var(--font);opacity:.94}
+.scene-independent{background:linear-gradient(130deg,#252d65,#61549f 55%,#bb88c6);display:flex;justify-content:center;align-items:center;overflow:hidden}
+.scene-independent-card{z-index:1;position:relative;color:white;width:78%;text-align:left;text-shadow:0 8px 26px #19244e55}
+.scene-independent-card strong{font-size:clamp(40px,5.5vw,76px)}
+.scene-orbit{position:absolute;border:2px dashed #fff7;border-radius:50%;transform:rotate(-29deg);width:110%;height:73%;left:-12%;top:12%}
+.scene-orbit.orbit-two{transform:rotate(30deg);border-color:#fff4;width:93%;height:130%;left:32%;top:-22%}
+.scene-orbit.orbit-three{transform:rotate(-46deg);border-color:#dce7ff6b;width:68%;height:128%;left:-26%;top:-29%}
+.external-pass .pass-top{letter-spacing:0}
+@media (max-width:550px){.scene-unknown-copy strong{font-size:44px}.scene-independent-card strong{font-size:41px}.scene-independent-card>span,.scene-unknown-copy>span{font-size:8px}.scene-independent-card small,.scene-unknown-copy small{font-size:9px}}
+
+/* Keep all seven stations tappable on small screens: horizontal, swipeable metro schematic. */
+@media (max-width:550px){
+  .map-card{min-height:492px}
+  .map-viewport{justify-content:flex-start;align-items:center;overflow-x:auto;overflow-y:hidden;min-height:380px;touch-action:pan-x pan-y;scrollbar-width:thin;scrollbar-color:#adc5cf transparent}
+  #metroMap{flex:0 0 690px;width:690px;height:453px;min-height:453px;max-height:none;transform:none}
+  .map-footer .muted{font-size:0}
+  .map-footer .muted:after{content:' · swipe the map to see all stops';font-size:10px}
+}
+
+</style>
+
+
+</head>
+<body>
+  <div class="site-wrap" id="home">
+    <header class="topbar">
+      <a href="#home" class="brand" id="brandHome" aria-label="Return to metro network">
+        <span class="brand-mark"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="6" y="5" width="30" height="32" rx="11" fill="none" stroke="currentColor" stroke-width="3"/><rect x="11" y="13" width="20" height="12" rx="3" fill="currentColor" opacity=".16"/><circle cx="14" cy="30" r="2.2" fill="currentColor"/><circle cx="28" cy="30" r="2.2" fill="currentColor"/><path d="M15 39h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+        <span class="brand-type"><strong>DIVISION B</strong><small>PLACEMENT METRO</small></span>
+      </a>
+      <div class="topbar-middle"><span class="live-dot"></span> THE JOURNEY IS UNDERWAY <span class="topbar-divider"></span> BENGALURU • 2026</div>
+      <div class="topbar-actions"><button class="subtle-btn" id="directoryOpen" type="button"><span class="icon-small">⌕</span> Passenger directory</button><button class="round-btn" id="soundButton" type="button" aria-label="Turn station announcements on" title="Sound off">♪<span class="sound-slash"></span></button></div>
+    </header>
+    <main>
+      <div class="hero-row">
+        <div class="hero-copy"><div class="eyebrow"><span class="eyebrow-line"></span> NMIMS BENGALURU · ONE DIVISION, MANY DESTINATIONS</div><h1>Next stop, <em>great things.</em><span class="punctuation">✳</span></h1><p>Same classroom. Different destinations. Pick a company station and ride along to meet the people who've made it.</p></div>
+        <div class="hero-stamp"><div class="stamp-inner"><span>THE</span><strong>B</strong><span>LINE</span></div><small>CLASS OF GO-GETTERS</small></div>
+      </div>
+      <section class="experience" aria-labelledby="mapHeading">
+        <div class="map-card" id="mapCard">
+          <div class="map-toolbar"><div class="map-title"><span class="map-title-icon">⌗</span><div><small>YOU ARE HERE</small><h2 id="mapHeading">The Placement Network</h2></div></div><span class="map-mode"><span class="ping-dot"></span> INTERACTIVE MAP</span></div>
+          <div class="map-viewport" id="mapViewport">
+            <svg id="metroMap" viewBox="0 0 960 630" role="group" aria-label="Interactive metro map with company stations" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <div class="map-footer"><div><span class="touch-indicator">↗</span><strong>Tap any station</strong><span class="muted"> to start your journey</span></div><div class="map-key"><span style="--c:#2378e9"></span><span style="--c:#eab431"></span><span style="--c:#f0636b"></span><span style="--c:#2eb99a"></span><span style="--c:#9c67e8"></span><small>7 ACTIVE STATIONS</small></div></div>
+        </div>
+        <aside class="dashboard-side">
+          <div class="progress-card"><div class="aside-label"><span class="small-square">↗</span> PLACEMENT PULSE <span class="pulse-live">● LIVE DATA</span></div><div class="counter-wrapper"><div class="big-counter"><span id="placedCountSide">16</span><span class="counter-divider">/</span><span class="counter-total" id="totalCountSide">58</span></div><div class="counter-sub">students have reached<br/>their next station.</div></div><div class="track"><div id="progressTrack" class="track-fill" style="width:27.6%"></div></div><div class="stat-line"><strong id="percentText">27.6%</strong> of the division placed<span id="waitingText">42 still on the journey</span></div></div>
+          <div class="station-list-card"><div class="aside-label">STATION DIRECTORY <span class="station-count" id="companyCounter">07 STOPS</span></div><p>Where shall we take you?</p><div id="stationList" class="station-list"></div><div class="side-footer"><span>◎</span> More stations will appear as the batch grows.</div></div>
+        </aside>
+      </section>
+      <div class="bottom-line"><span>NOT JUST A PLACEMENT TRACKER.</span><strong> A little celebration of everyone moving forward. <span>♡</span></strong><small>BUILT FOR DIVISION B</small></div>
+    </main>
+    <footer><span>DIVISION B PLACEMENT METRO</span><span>Made for the batch, by the batch · Photos coming soon</span><span>END OF THE LINE? NEVER.</span></footer>
+  </div>
+
+  <section class="journey" id="journey" aria-label="Metro journey" aria-hidden="true">
+    <div class="journey-topbar"><div class="journey-logo"><span class="journey-logo-ring">B</span><span>DIVISION B <b>METRO</b></span><span class="journey-divider">/</span><span id="tripLine">BLUE LINE</span></div><div class="journey-actions"><button type="button" class="journey-action" id="tripSkip">Skip ride <span>↗</span></button><button type="button" class="journey-action" id="tripBack">✕ <span>Back to map</span></button></div></div>
+    <div class="journey-layout"><div class="journey-lede"><span class="tag-text" id="journeyPhaseLabel">NOW DEPARTING</span><h2 id="journeyHeadline">Mind the gap.<br/><em>Dream big.</em></h2><p id="journeyDescription">Your train is now heading towards its next destination.</p><div class="journey-progress-block"><div class="progress-labels"><span>DIVISION B CENTRAL</span><span id="progressDestination">MARSH</span></div><div class="journey-progress"><div class="journey-progress-fill"></div><span class="journey-train">▣</span></div><div class="journey-progress-bottom"><span>● ON BOARD</span><span>● <span id="nextCityBottom">MUMBAI / BENGALURU</span></span></div></div></div>
+      <div class="carriage" id="carriage"><div class="carriage-roof"><span class="hanger">⌑</span><div class="led"><small>● UPCOMING STATION</small><strong id="ledStation">MARSH</strong><span class="led-sub" id="ledLine">Doors will open shortly →</span></div><span class="hanger">⌑</span></div><div class="carriage-body"><span class="grabrail grabrail-left"></span><div class="metro-window" id="metroWindow"><div class="window-scenery" id="scenery"></div><div class="window-reflection"></div><div class="window-sticker">THE NEXT CHAPTER<br/>LOOKS GOOD ON YOU ✳</div></div><span class="grabrail grabrail-right"></span></div><div class="carriage-floor"><span>▰ ▰ ▰</span><span>DIVISION B EXPRESS · THIS IS YOUR MOMENT</span><span>▰ ▰ ▰</span></div></div>
+      <div class="arrival-platform" id="arrivalPlatform" aria-live="polite"><div class="platform-heading"><div><span class="platform-eyebrow">WELCOME TO YOUR DESTINATION</span><h2><span id="platformStation">Marsh</span> <span class="platform-flag">STATION</span></h2><p><span id="platformPeopleCount">3</span> <span id="platformPeopleDescription">Division B students placed here</span> <span class="dot-sep">·</span> <span id="platformCity">Mumbai / Bengaluru</span></p></div><span class="arrival-roundel">B<span>⇄</span></span></div><div class="door-bay"><div class="behind-doors" id="studentCards"></div><div class="sliding-door sliding-door-left"><div class="door-window"></div><div class="door-handle"></div></div><div class="sliding-door sliding-door-right"><div class="door-window"></div><div class="door-handle"></div></div><div class="platform-yellow-line"></div></div><div class="arrival-bottom"><span>⚑ <strong>Same classroom. Different destinations.</strong> Still Division B.</span><button type="button" id="anotherStation">Explore another station <span>↗</span></button></div></div>
+    </div>
+  </section>
+
+  <div class="modal" id="directoryModal" aria-hidden="true"><div class="modal-backdrop" id="modalBackdrop"></div><div class="directory-sheet" role="dialog" aria-modal="true" aria-label="Passenger directory"><div class="directory-head"><div><span class="tag-text">ALL ABOARD</span><h2>Passenger directory <span>↗</span></h2><p>16 classmates. Seven destinations. One Division B.</p></div><button class="modal-close" type="button" id="directoryClose" aria-label="Close directory">✕</button></div><div class="directory-controls"><label for="studentSearch">SEARCH PASSENGERS</label><input type="search" id="studentSearch" placeholder="Try a name or company…" autocomplete="off"/></div><div id="directoryRows" class="directory-rows"></div><p class="directory-disclaimer">All 16 students are on the supplied Division B roster. The two external placements have unconfirmed company names and dates; NTT’s city/date are not yet specified. Portrait photos are placeholders until provided with permission.</p></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* Edit this file to update the website. Changes published through GitHub Pages keep the same URL. */
+window.PLACEMENT_DATA = {
+  division: 'Division B',
+  batch: 'NMIMS Bengaluru',
+  totalStudents: 58,
+  // Original placements matched to Division B, plus three new placements supplied directly by the class representative. Dates and company locations not yet provided are intentionally left blank.
+  stations: [
+    { id: 'marsh', name: 'Marsh', cityLabel: 'Mumbai / Bengaluru', scene: 'split', color: '#2378e9', line: 'Blue Line', dateLabel: '01 SEP 2026' },
+    { id: 'crisil', name: 'CRISIL', cityLabel: 'Mumbai', scene: 'mumbai', color: '#eab431', line: 'Yellow Line', dateLabel: '16 OCT 2026' },
+    { id: 'icici', name: 'ICICI Bank', cityLabel: 'Pan India', scene: 'india', color: '#f0636b', line: 'Red Line', dateLabel: '17 OCT 2026' },
+    { id: 'sagility', name: 'Sagility', cityLabel: 'Bengaluru', scene: 'bengaluru', color: '#2eb99a', line: 'Green Line', dateLabel: '23 SEP 2026' },
+    { id: 'friday', name: 'Friday Fiction Films', cityLabel: 'Ahmedabad', scene: 'ahmedabad', color: '#9c67e8', line: 'Violet Line', dateLabel: '17 OCT 2026' },
+    { id: 'ntt', name: 'NTT', cityLabel: 'Location to be added', scene: 'undisclosed', color: '#f38b46', line: 'Orange Line', dateLabel: '' },
+    { id: 'external', name: 'External Placements', cityLabel: 'Independent routes · companies TBA', scene: 'external', color: '#9476ce', line: 'Independent Line', dateLabel: '', kind: 'external' }
+  ],
+  students: [
+    { id: 1, name: 'Gurnoor Kaur', company: 'marsh', date: '2026-09-01', photo: '' },
+    { id: 2, name: 'Kush Joshi', company: 'marsh', date: '2026-09-01', photo: '' },
+    { id: 3, name: 'Lakshya Khandelwal', company: 'marsh', date: '2026-09-01', photo: '' },
+    { id: 4, name: 'Aditi Pareek', company: 'crisil', date: '2026-10-16', photo: '' },
+    { id: 5, name: 'Jeel Patel', company: 'crisil', date: '2026-10-16', photo: '' },
+    { id: 6, name: 'Vinisha Jain', company: 'crisil', date: '2026-10-16', photo: '' },
+    { id: 7, name: 'Racheet Dhameja', company: 'sagility', date: '2026-09-23', photo: '' },
+    { id: 8, name: 'Vaibhav Singh', company: 'friday', date: '2026-10-17', photo: '' },
+    { id: 9, name: 'Harsha Sarda', company: 'icici', date: '2026-10-17', photo: '' },
+    { id: 10, name: 'Jai Ailani', company: 'icici', date: '2026-10-17', photo: '' },
+    { id: 11, name: 'Maitri Aggarwal', company: 'icici', date: '2026-10-17', photo: '' },
+    { id: 12, name: 'Manya Banga', company: 'icici', date: '2026-10-17', photo: '' },
+    { id: 13, name: 'Vineet V Devapur', company: 'icici', date: '2026-10-17', photo: '' },
+    { id: 14, name: 'Aaditya Kumar Sinha', company: 'ntt', date: '', photo: '' },
+    { id: 15, name: 'Aaradhya Gadia', company: 'external', date: '', photo: '', placementType: 'external', companyName: '' },
+    { id: 16, name: 'Vedi Goenka', company: 'external', date: '', photo: '', placementType: 'external', companyName: '' }
+  ]
+};
+
+</script>
+<script>
+(() => {
+  'use strict';
+  const data = window.PLACEMENT_DATA;
+  if (!data || !Array.isArray(data.stations) || !Array.isArray(data.students)) {
+    document.body.textContent = 'Placement data could not be loaded. Keep placements.js next to index.html.';
+    return;
+  }
+  const $ = (id) => document.getElementById(id);
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, x => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[x]);
+  const studentsAt = id => data.students.filter(s => s.company === id);
+  const placeCount = data.students.length;
+  const placementPercent = data.totalStudents ? 100 * placeCount / data.totalStudents : 0;
+  const dateLabel = (iso) => {
+    if (!iso) return 'Date to be added';
+    const [year, month, day] = String(iso).split('-').map(Number);
+    return year && month && day ? new Date(Date.UTC(year, month - 1, day)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : String(iso);
+  };
+  const stationById = id => data.stations.find(st => st.id === id);
+  let phase = 'map', currentStation = null, timers = [], soundOn = false, lastFocused = null;
+  const queue = (callback, delay) => { const t = setTimeout(callback, delay); timers.push(t); };
+  function cancelQueued() { timers.forEach(clearTimeout); timers = []; }
+
+  // Each colored route in the spider diagram intersects Division B Central.
+  const routes = [
+    { id:'marsh', path:'M112 43 L175 88 L175 111 Q180 143 220 142 L267 150 Q340 162 382 231 L472 318 L515 368', minor:[[175,88],[220,142],[355,207]] },
+    { id:'crisil', path:'M781 31 L781 83 Q781 149 711 149 L706 149 Q639 149 601 206 L472 318 L408 372', minor:[[781,83],[775,149],[620,184]] },
+    { id:'icici', path:'M43 543 L134 503 L247 458 L350 389 L472 318 L549 237', minor:[[134,503],[342,397],[549,237]] },
+    { id:'sagility',path:'M942 325 H871 L738 383 L630 383 L472 318 L400 271', minor:[[871,325],[646,383],[400,271]] },
+    { id:'friday', path:'M733 603 L670 560 L597 513 L558 439 L472 318 L416 214', minor:[[670,560],[552,431],[416,214]] },
+    { id:'ntt', path:'M944 125 L911 168 L844 246 L706 287 L592 307 L472 318', minor:[[911,168],[706,287]] },
+    { id:'external', path:'M18 390 L80 377 L166 350 L307 328 L472 318', minor:[[80,377],[307,328]] }
+  ];
+  const positions = {
+    marsh:{x:267,y:150,labelX:186,labelY:89,cityX:186,cityY:110,badgeX:304,badgeY:179},
+    crisil:{x:706,y:149,labelX:733,labelY:92,cityX:733,cityY:112,badgeX:747,badgeY:178},
+    icici:{x:247,y:458,labelX:111,labelY:532,cityX:111,cityY:552,badgeX:288,badgeY:485},
+    sagility:{x:738,y:383,labelX:785,labelY:366,cityX:785,cityY:386,badgeX:777,badgeY:418},
+    friday:{x:597,y:513,labelX:653,labelY:516,cityX:653,cityY:536,badgeX:637,badgeY:553},
+    ntt:{x:844,y:246,labelX:824,labelY:173,cityX:824,cityY:194,badgeX:886,badgeY:282},
+    external:{x:166,y:350,labelX:28,labelY:294,cityX:28,cityY:314,badgeX:206,badgeY:381}
+  };
+
+  function renderMap() {
+    const routePaths = routes.map(r => {
+      const c = stationById(r.id)?.color || '#76a1c3';
+      return `<path class="route-shadow" d="${r.path}"/><path class="route" d="${r.path}" stroke="${c}"/>`;
+    }).join('');
+    const smallStops = routes.map(r => {
+      const c = stationById(r.id)?.color || '#76a1c3';
+      return r.minor.map(([x,y]) => `<circle class="minor-stop" cx="${x}" cy="${y}" r="8" stroke="${c}"/>`).join('');
+    }).join('');
+    const stations = data.stations.map(st => {
+      const p = positions[st.id];
+      if (!p) return '';
+      const count = studentsAt(st.id).length;
+      const name = st.name === 'Friday Fiction Films' ? 'Friday Fiction' : st.id === 'external' ? 'External Placements' : st.name;
+      const placeCity = st.id === 'external' ? 'Off-campus · 2 students' : st.id === 'ntt' ? 'City to be added' : st.cityLabel;
+      return `<g class="station-group" tabindex="0" role="button" aria-label="Visit ${esc(st.name)} station, ${count} placed" data-station-id="${esc(st.id)}">
+       <title>${esc(st.name)} · ${count} placed · Click to travel</title>
+       <circle class="station-halo" cx="${p.x}" cy="${p.y}" r="40" fill="${st.color}"/>
+       <circle class="station-outer" cx="${p.x}" cy="${p.y}" r="31" fill="white" stroke="${st.color}" stroke-width="10"/>
+       <circle cx="${p.x}" cy="${p.y}" r="13" fill="${st.color}"/>
+       <text class="station-label" x="${p.labelX}" y="${p.labelY}">${esc(name)}</text>
+       <text class="station-city" x="${p.cityX}" y="${p.cityY}">${esc(placeCity)}</text>
+       <rect x="${p.badgeX-15}" y="${p.badgeY-16}" width="30" height="30" rx="15" fill="${st.color}"/>
+       <text x="${p.badgeX}" y="${p.badgeY+5}" class="station-count">${count}</text>
+      </g>`;
+    }).join('');
+    $('metroMap').innerHTML = `
+      <text x="38" y="40" class="tiny-label">D / B • METRO NETWORK 2026</text>
+      <text x="744" y="600" class="tiny-label">${data.stations.length} DESTINATIONS ↗</text>
+      <circle cx="472" cy="318" r="184" fill="none" stroke="#e5f2f4" stroke-width="1.3" stroke-dasharray="3 11"/>
+      <circle cx="472" cy="318" r="250" fill="none" stroke="#eef4f6" stroke-width="1.2" stroke-dasharray="2 14"/>
+      ${routePaths}${smallStops}
+      <circle cx="472" cy="318" r="107" fill="#d2e0e8" opacity=".35"/>
+      <circle cx="472" cy="318" r="102" fill="white" stroke="#dae9ee" stroke-width="3"/>
+      <circle cx="472" cy="318" r="91" fill="none" stroke="#eef5f8" stroke-width="1" stroke-dasharray="2 6"/>
+      <text class="hub-label" x="472" y="263">DIVISION B CENTRAL</text>
+      <text class="hub-total" x="472" y="319">${placeCount} / ${data.totalStudents}</text>
+      <text class="hub-caption" x="472" y="346">STUDENTS PLACED</text>
+      <rect x="421" y="368" width="102" height="26" rx="13" fill="#e4f8ee"/>
+      <text x="472" y="385" font-family="DM Sans, sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#268a6b">${placementPercent.toFixed(1)}% DONE ↗</text>
+      ${stations}`;
+    $('metroMap').addEventListener('click', e => {
+      const target = e.target.closest('[data-station-id]');
+      if (target) startTrip(target.getAttribute('data-station-id'));
+    });
+    $('metroMap').addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const target = e.target.closest('[data-station-id]');
+        if (target) { e.preventDefault(); startTrip(target.getAttribute('data-station-id')); }
+      }
+    });
+  }
+  function renderStatsAndStations() {
+    const footerKey = document.querySelector('.map-key');
+    footerKey.innerHTML = data.stations.map(st => `<span style="--c:${st.color}"></span>`).join('') + `<small>${data.stations.length} ACTIVE STATIONS</small>`;
+    const tagline = document.querySelector('.directory-head p');
+    if (tagline) tagline.textContent = `${placeCount} classmates. ${data.stations.length} destinations. One Division B.`;
+    $('placedCountSide').textContent = String(placeCount);
+    $('totalCountSide').textContent = String(data.totalStudents);
+    $('percentText').textContent = placementPercent.toFixed(1)+'%';
+    $('progressTrack').style.width = Math.min(100,placementPercent).toFixed(1)+'%';
+    $('waitingText').textContent = Math.max(0,data.totalStudents-placeCount)+' still on the journey';
+    $('companyCounter').textContent = String(data.stations.length).padStart(2,'0')+' STOPS';
+    $('stationList').innerHTML = data.stations.map(st => `<button class="station-link" type="button" data-station-id="${esc(st.id)}" aria-label="Travel to ${esc(st.name)}"><span class="station-icon" style="--station-color:${st.color}"></span><span class="station-name"><strong>${esc(st.name)}</strong><small>${esc(st.cityLabel)}</small></span><span class="station-people">${studentsAt(st.id).length}</span><span class="station-arrow">↗</span></button>`).join('');
+    $('stationList').addEventListener('click', e => { const button=e.target.closest('[data-station-id]'); if(button) startTrip(button.dataset.stationId); });
+  }
+  function skylineSVG(city) {
+    const foreground = city === 'mumbai' ? '#466b83' : city === 'bengaluru' ? '#477a83' : '#786e70';
+    const farther = city === 'mumbai' ? '#719bae' : city === 'bengaluru' ? '#6faab2' : '#bb8e89';
+    const facades = `
+      <g fill="${farther}" opacity=".65"><rect x="5" y="183" width="62" height="124"/><rect x="66" y="134" width="39" height="173"/><rect x="111" y="169" width="55" height="138"/><rect x="176" y="190" width="33" height="117"/><rect x="355" y="166" width="40" height="141"/><rect x="397" y="131" width="48" height="176"/><rect x="451" y="160" width="65" height="147"/><rect x="520" y="188" width="55" height="119"/><rect x="579" y="139" width="54" height="168"/><rect x="639" y="180" width="40" height="127"/><rect x="684" y="152" width="55" height="155"/><rect x="742" y="187" width="67" height="120"/></g>
+      <g fill="#e8f2f0" opacity=".45"><path d="M75 149v118 M134 179v97 M414 153v107 M470 180v88 M604 162v118 M718 174v103" stroke="#e8f2f0" stroke-width="3" stroke-dasharray="4 10"/></g>`;
+    let landmark = '';
+    if(city === 'mumbai'){
+      // Stylized Gateway of India: two turrets, a central arch and sea foreground.
+      landmark = `<g fill="${foreground}"><rect x="235" y="180" width="14" height="129"/><rect x="342" y="180" width="14" height="129"/><path d="M249 199 Q295 157 342 199 V310 H329 V245 Q295 209 265 245 V310 H249Z"/><path d="M270 192 L295 163 L323 192Z"/><rect x="242" y="175" width="14" height="16"/><rect x="335" y="175" width="14" height="16"/><rect x="283" y="152" width="24" height="13"/></g><path d="M0 300 Q190 290 338 303 T810 296V360H0Z" fill="#739ca8" opacity=".7"/><path d="M0 319 Q180 312 378 320 T810 314" fill="none" stroke="#e3f2e8" stroke-width="3" opacity=".6"/>`;
+    } else if(city === 'bengaluru'){
+      landmark = `<g fill="${foreground}"><path d="M228 226H410V307H228Z"/><rect x="244" y="206" width="149" height="20"/><path d="M279 205V177Q315 133 350 177V205Z"/><path d="M306 155V139H322V155Z"/><path d="M228 243H410" stroke="#c2e1dc" stroke-width="9"/><g fill="#cde8e3"><rect x="246" y="250" width="10" height="42"/><rect x="266" y="250" width="10" height="42"/><rect x="286" y="250" width="10" height="42"/><rect x="340" y="250" width="10" height="42"/><rect x="360" y="250" width="10" height="42"/><rect x="380" y="250" width="10" height="42"/></g></g><path d="M0 292 Q55 260 105 290T205 285T337 285T480 291T810 286V360H0Z" fill="#7cb69b" opacity=".65"/><g fill="#3f8e7d"><circle cx="155" cy="273" r="35"/><circle cx="474" cy="276" r="31"/><circle cx="675" cy="280" r="38"/></g>`;
+    } else {
+      landmark = `<g fill="${foreground}"><path d="M213 256 Q292 177 372 256V305H213Z"/><path d="M221 245 Q292 186 365 245" fill="none" stroke="#ead0b2" stroke-width="7"/><rect x="248" y="221" width="13" height="84"/><rect x="325" y="221" width="13" height="84"/><rect x="277" y="239" width="32" height="66" fill="#e9c5a3"/><path d="M277 261 Q293 244 309 261V305H277Z" fill="${foreground}"/><rect x="198" y="246" width="15" height="59"/><rect x="372" y="246" width="15" height="59"/></g><path d="M0 309 Q210 286 370 310 T810 308V370H0Z" fill="#cba68f"/><path d="M0 323H810" stroke="#eae0ca" stroke-width="4" opacity=".6"/>`;
+    }
+    return `<svg class="city-svg" viewBox="0 0 810 360" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="641" cy="65" r="31" fill="#ffedc9" opacity=".75"/>${facades}${landmark}<path d="M0 355H810" stroke="${foreground}" stroke-width="14"/></svg>`;
+  }
+  function cityScene(city,name){return `<div class="scene scene-${city}"><div class="scene-background"></div>${skylineSVG(city)}<span class="scene-name">${esc(name)}</span></div>`;}
+  function indiaScene(){
+    return `<div class="scene scene-india"><svg class="india-globe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 450" aria-label="Stylized outline of India"><defs><linearGradient id="indiaGradient" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#91e7c1"/><stop offset="1" stop-color="#30a5ac"/></linearGradient></defs><circle cx="220" cy="213" r="182" fill="none" stroke="#a1d9df" stroke-opacity=".14" stroke-width="2" stroke-dasharray="5 10"/><circle cx="220" cy="213" r="141" fill="none" stroke="#a1d9df" stroke-opacity=".14" stroke-width="2"/><path d="M169 15L197 31L215 26L231 52L260 62L260 83L290 98L287 123L312 150L294 178L278 201L277 223L259 244L254 272L236 298L225 330L213 362L205 397L191 427L177 397L161 359L151 332L135 310L130 289L112 265L105 242L88 216L93 197L70 180L78 157L55 137L62 117L48 99L70 80L92 89L101 63L125 67L142 44L153 38Z" fill="url(#indiaGradient)" stroke="#d6fff1" stroke-width="3" stroke-linejoin="round"/><path d="M127 138L184 176L229 160L244 240L184 311L203 383" fill="none" stroke="#d7f8ef" stroke-width="2" stroke-dasharray="5 8" opacity=".7"/><g fill="#ffdb7c" stroke="#fff" stroke-width="2"><circle cx="127" cy="138" r="6"/><circle cx="184" cy="176" r="6"/><circle cx="229" cy="160" r="6"/><circle cx="244" cy="240" r="6"/><circle cx="184" cy="311" r="6"/></g></svg><div class="india-words"><span class="eyeword">PAN INDIA ↗</span><span class="letsee">LET'S<br/>SEE.</span><p>One big map.<br/>Endless possibilities.</p></div></div>`;
+  }
+  function renderScenery(st) {
+    switch(st.scene){
+      case 'undisclosed': return `<div class="scene scene-undisclosed"><div class="scene-dots"></div><div class="scene-unknown-mark">?</div><div class="scene-unknown-copy"><span>NTT · NEXT DESTINATION</span><strong>NEW<br/>HORIZONS.</strong><small>City details coming soon</small></div></div>`;
+      case 'external': return `<div class="scene scene-independent"><div class="scene-orbit orbit-one"></div><div class="scene-orbit orbit-two"></div><div class="scene-orbit orbit-three"></div><div class="scene-independent-card"><span>INDEPENDENT LINE · DIVISION B</span><strong>OWN<br/>YOUR<br/>ROUTE ↗</strong><small>Two classmates, two off-campus successes.<br/>Company & location details coming soon.</small></div></div>`;
+      case 'split': return `<div class="scene scene-split"><div class="split-half">${cityScene('mumbai','MUMBAI')}</div><div class="split-half">${cityScene('bengaluru','BENGALURU')}</div><div class="split-border"></div><span class="split-badge">× TWO CITIES</span></div>`;
+      case 'india': return indiaScene();
+      case 'mumbai': return cityScene('mumbai','MUMBAI · MAHARASHTRA');
+      case 'bengaluru': return cityScene('bengaluru','BENGALURU · KARNATAKA');
+      case 'ahmedabad': return cityScene('ahmedabad','AHMEDABAD · GUJARAT');
+      default: return cityScene('bengaluru',st.cityLabel);
+    }
+  }
+  function announce(st){
+    if(!soundOn || !('speechSynthesis' in window)) return;
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(`Agla station, ${st.name}. Next station, ${st.name}. Doors will open shortly.`);
+      u.rate=.96;u.pitch=1;u.volume=.7;
+      window.speechSynthesis.speak(u);
+    }catch(_){/* no audio availability should never block the website */}
+  }
+  function renderCards(st){
+    const list=studentsAt(st.id);
+    $('studentCards').innerHTML=list.map((s,i)=>{
+      const initials=s.name.split(/\s+/).filter(Boolean).map(w=>w[0].toUpperCase()).slice(0,2).join('');
+      const avatar=s.photo ? `<img src="${esc(s.photo)}" alt="Portrait of ${esc(s.name)}" onerror="this.parentElement.textContent='${initials}'" />` : initials;
+      const external = st.kind === 'external';
+      const roleLabel = external ? (s.companyName || 'Company to be added') : st.name;
+      return `<article class="pass-card${external ? ' external-pass' : ''}" style="--card-color:${st.color}" aria-label="${esc(s.name)}, ${external ? 'external placement' : 'placed at '+esc(st.name)}"><div class="pass-top"><span>▣</span> ${external ? 'EXTERNAL PLACEMENT' : 'PLACEMENT PASS'}</div><div class="avatar">${avatar}</div><div class="pass-name">${esc(s.name)}</div><div class="pass-company">${esc(roleLabel)}</div><div class="pass-date">◷ ${dateLabel(s.date)}</div><div class="pass-footer">DIVISION B · ${external ? 'INDEPENDENT ROUTE' : 'PLACED'}</div></article>`;
+    }).join('');
+    // For five ICICI cards, give the cards enough room to scroll on narrow devices.
+    $('studentCards').classList.toggle('many-students',list.length>3);
+  }
+  function setPhase(p){
+    phase=p; const el=$('journey');
+    el.classList.remove('phase-ride','phase-arrival','phase-reveal');
+    if(p!=='map') el.classList.add('phase-'+p);
+  }
+  function startTrip(id){
+    const st=stationById(id);
+    if(!st) return;
+    cancelQueued(); currentStation=st;
+    lastFocused=document.activeElement;
+    $('mapCard').classList.add('is-zooming');
+    $('tripLine').textContent=st.line.toUpperCase();
+    $('journeyHeadline').innerHTML=`Next stop,<br/><em>${esc(st.name)}.</em>`;
+    $('journeyDescription').textContent=st.kind === 'external' ? 'Some journeys take a different track. Celebrating two classmates who secured external placements.' : st.id === 'ntt' ? 'Our newest company stop is NTT. Destination city details coming soon.' : `Welcome aboard the ${st.line.toLowerCase()}. Your destination: ${st.cityLabel}.`;
+    $('journeyPhaseLabel').textContent='NOW DEPARTING · DIVISION B CENTRAL';
+    $('ledStation').textContent=st.name;
+    $('ledLine').textContent=st.kind === 'external' ? 'Every path deserves a celebration →' : 'Doors will open shortly →';
+    $('progressDestination').textContent=st.name.toUpperCase();
+    $('nextCityBottom').textContent=st.cityLabel.toUpperCase();
+    $('scenery').innerHTML=renderScenery(st);
+    $('platformStation').textContent=st.name;
+    $('platformPeopleCount').textContent=studentsAt(st.id).length;
+    document.getElementById('platformPeopleDescription').textContent=st.kind === 'external' ? 'Division B students with external placements' : 'Division B students placed here';
+    $('platformCity').textContent=st.cityLabel;
+    renderCards(st);
+    setPhase('ride');
+    $('journey').classList.add('active');
+    $('journey').setAttribute('aria-hidden','false');
+    $('journey').scrollTop=0;
+    document.body.style.overflow='hidden';
+    announce(st);
+    $('tripBack').focus({preventScroll:true});
+    queue(beginArrival,2800);
+  }
+  function beginArrival(){
+    if(phase==='map')return;
+    cancelQueued(); setPhase('arrival');
+    $('journeyPhaseLabel').textContent='NOW ARRIVING · PLEASE STAND CLEAR';
+    $('journeyHeadline').innerHTML=`Welcome to<br/><em>${esc(currentStation.name)}.</em>`;
+    $('journeyDescription').textContent=`We've arrived. The doors are opening to reveal ${studentsAt(currentStation.id).length} placement pass${studentsAt(currentStation.id).length===1?'':'es'}.`;
+    queue(()=>setPhase('reveal'),550);
+  }
+  function skipTrip(){
+    if(phase==='map' || phase==='reveal')return;
+    beginArrival();cancelQueued();
+    queue(()=>setPhase('reveal'),40);
+  }
+  function closeTrip(){
+    cancelQueued();if('speechSynthesis' in window)try{speechSynthesis.cancel()}catch(_){}
+    $('journey').classList.remove('active');
+    $('journey').setAttribute('aria-hidden','true');
+    $('mapCard').classList.remove('is-zooming');
+    setPhase('map');currentStation=null;
+    document.body.style.overflow='';
+    if(lastFocused && lastFocused.isConnected)lastFocused.focus({preventScroll:true});
+  }
+  function directoryRows(query=''){
+    const q=query.toLowerCase().trim();
+    const people=[...data.students].sort((a,b)=>a.name.localeCompare(b.name)).filter(s=>`${s.name} ${stationById(s.company)?.name || ''}`.toLowerCase().includes(q));
+    $('directoryRows').innerHTML=people.length?people.map(s=>{
+      const st=stationById(s.company);const initials=s.name.split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase();
+      const avatar=s.photo?`<img src="${esc(s.photo)}" alt="" onerror="this.parentElement.textContent='${initials}'"/>`:initials;
+      return `<div class="directory-row" style="--dir-color:${st?.color || '#2378e9'}"><div class="directory-avatar">${avatar}</div><div class="directory-name"><strong>${esc(s.name)}</strong><span>${dateLabel(s.date)}</span></div><span class="directory-tag">${esc(st?.name || s.company)}</span></div>`;
+    }).join(''):'<div class="empty-list">No passengers found for that search.</div>';
+  }
+  function openDirectory(){lastFocused=document.activeElement;directoryRows();$('studentSearch').value='';$('directoryModal').classList.add('active');$('directoryModal').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('studentSearch').focus();}
+  function closeDirectory(){$('directoryModal').classList.remove('active');$('directoryModal').setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocused && lastFocused.isConnected)lastFocused.focus({preventScroll:true});}
+  function soundToggle(){
+    soundOn=!soundOn;$('soundButton').classList.toggle('sound-on',soundOn);
+    $('soundButton').setAttribute('aria-label',soundOn?'Turn station announcements off':'Turn station announcements on');
+    $('soundButton').title=soundOn?'Sound on':'Sound off';
+    const toast=$('toast'); toast.textContent=soundOn?'Announcements enabled ♪':'Announcements muted';toast.classList.add('show');clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>toast.classList.remove('show'),1900);
+    if(!soundOn && 'speechSynthesis' in window)try{speechSynthesis.cancel()}catch(_){}
+  }
+  $('tripSkip').addEventListener('click',skipTrip);
+  $('tripBack').addEventListener('click',closeTrip);
+  $('anotherStation').addEventListener('click',closeTrip);
+  $('brandHome').addEventListener('click',e=>{if(phase!=='map'){e.preventDefault();closeTrip()}});
+  $('directoryOpen').addEventListener('click',openDirectory);
+  $('directoryClose').addEventListener('click',closeDirectory);
+  $('modalBackdrop').addEventListener('click',closeDirectory);
+  $('studentSearch').addEventListener('input',e=>directoryRows(e.target.value));
+  $('soundButton').addEventListener('click',soundToggle);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('directoryModal').classList.contains('active')?closeDirectory():phase!=='map'&&closeTrip()}});
+  renderMap();renderStatsAndStations();
+  if (window.innerWidth <= 550) {
+    const viewport = $('mapViewport');
+    viewport.scrollLeft = Math.max(0, (viewport.scrollWidth - viewport.clientWidth) / 2);
+  }
+})();
+
+</script>
+</body>
+</html>
